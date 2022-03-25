@@ -1,14 +1,15 @@
-package writeside;
+package writeside.repository;
 
 import eventside.domain.Booking;
 import eventside.domain.Room;
 import org.springframework.stereotype.Component;
+import writeside.application.StorageWrite;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StorageWriteImpl implements StorageImpl{
+public class StorageWriteImpl implements StorageWrite {
     private List<String> storage = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();

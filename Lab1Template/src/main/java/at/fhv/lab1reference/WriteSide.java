@@ -4,7 +4,7 @@ import eventside.domain.Booking;
 import eventside.domain.Customer;
 import eventside.domain.Event;
 import eventside.domain.Room;
-import writeside.StorageWriteImpl;
+import writeside.repository.StorageWriteImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
