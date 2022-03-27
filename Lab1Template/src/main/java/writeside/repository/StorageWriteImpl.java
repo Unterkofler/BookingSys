@@ -1,4 +1,4 @@
-package writeside;
+package writeside.repository;
 
 import eventside.domain.Booking;
 import eventside.domain.Customer;
@@ -6,6 +6,7 @@ import eventside.domain.Room;
 import org.springframework.stereotype.Component;
 import writeside.application.StorageWrite;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,13 +20,23 @@ public class StorageWriteImpl implements StorageWrite {
     public StorageWriteImpl(){
         for (int i = 0; i < 50; i++) {
             Random random = new Random( 99991 * i + 13);
-            rooms.add(i, new Room(i, random.nextInt(5) + 1, random.nextBoolean()));
+            rooms.add(i, new Room(i, random.nextInt(5) + 1, true));
         }
     }
 
-    public boolean add(Customer customer){
+    public void add(Customer customer){
         boolean isadded = this.customers.add(customer);
-        return isadded;
+    }
+
+    @Override
+    public List<Room> getAvalibleRooms(LocalDate startDate, LocalDate endDate, int capacity) {
+        List<Room> roomsResult = new ArrayList<>();
+        for (Room room : rooms) {
+            if (capacity == room.getCapacity()){
+                roomsResult.add(room);
+            }
+        }
+        return roomsResult;
     }
 
     @Override

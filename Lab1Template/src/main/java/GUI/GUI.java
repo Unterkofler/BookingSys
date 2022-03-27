@@ -3,7 +3,8 @@ package GUI;
 import eventside.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import writeside.StorageWriteImpl;
+import writeside.application.StorageWrite;
+import writeside.repository.StorageWriteImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.awt.event.ActionListener;
 @Component
 public final class GUI implements ActionListener{
     @Autowired
-    private StorageWriteImpl storageWrite = new StorageWriteImpl();
+    private StorageWrite storageWrite = new StorageWriteImpl();
     private JLabel labelFirstName, labelLastName, labelStartDate, labelEndDate;
     private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate;
     private JButton buttonConfirm;

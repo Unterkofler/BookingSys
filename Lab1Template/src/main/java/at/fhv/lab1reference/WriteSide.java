@@ -4,8 +4,6 @@ import GUI.GUI;
 import eventside.domain.Booking;
 import eventside.domain.Customer;
 import eventside.domain.Event;
-import eventside.domain.Room;
-import writeside.StorageWriteImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,12 +13,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import writeside.EventPublisher;
+import writeside.application.StorageWrite;
+import writeside.repository.StorageWriteImpl;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @SpringBootApplication
 @Configuration
