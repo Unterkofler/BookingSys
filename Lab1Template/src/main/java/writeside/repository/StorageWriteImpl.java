@@ -4,13 +4,14 @@ import eventside.domain.Booking;
 import eventside.domain.Customer;
 import eventside.domain.Room;
 import org.springframework.stereotype.Component;
+import writeside.application.StorageWrite;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @Component
-public class StorageWriteImpl implements StorageImpl{
+public class StorageWriteImpl implements StorageWrite {
     private List<Customer> customers  = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
@@ -42,4 +43,29 @@ public class StorageWriteImpl implements StorageImpl{
     public void createRooms(Room room) {
         rooms.add(room);
     }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
 }
+

@@ -5,7 +5,8 @@ import eventside.domain.Booking;
 import eventside.domain.Customer;
 import eventside.domain.Event;
 import eventside.domain.Room;
-import writeside.repository.StorageWriteImpl;
+import writeside.StorageWriteImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -58,6 +59,8 @@ public class WriteSide {
             Booking booking1 = new Booking(1,customer1, LocalDate.now(),LocalDate.now().plusDays(2),storageWrite.getRooms());
             storageWrite.createBooking(booking1);
 
+            //für GUI
+            /*
             boolean flag = true;
             while (flag){
                 if (storageWrite.getCustomers().size() == 1){
@@ -65,6 +68,8 @@ public class WriteSide {
                     flag = false;
                 }
             }
+
+             */
 
         };
     }
