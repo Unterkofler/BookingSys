@@ -13,35 +13,46 @@ import java.util.Random;
 
 @Component
 public class StorageWriteImpl implements StorageWrite {
-    private List<Customer> customers  = new ArrayList<>();
+    private List<Customer> customers = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
 
-    public StorageWriteImpl(){
+    public StorageWriteImpl() {
         for (int i = 0; i < 50; i++) {
-            Random random = new Random( 99991 * i + 13);
+            Random random = new Random(99991 * i + 13);
             rooms.add(i, new Room(i, random.nextInt(5) + 1, true));
         }
     }
 
-    public void add(Customer customer){
+    public void createRooms() {
+        for (int i = 0; i < 50; i++) {
+            Random random = new Random(99991 * i + 13);
+            rooms.add(i, new Room(i, random.nextInt(5) + 1, true));
+        }
+    }
+
+    public void add(Customer customer) {
         boolean isadded = this.customers.add(customer);
     }
 
     @Override
-    public List<Room> getAvalibleRooms(LocalDate startDate, LocalDate endDate, int capacity) {
+    public List<Room> roomsByCapacity(int capacity) throws Exception {
         List<Room> roomsResult = new ArrayList<>();
         for (Room room : rooms) {
-            if (capacity == room.getCapacity()){
+            if (capacity == room.getCapacity()) {
                 roomsResult.add(room);
             }
         }
+
+        if(roomsResult.size() == 0){
+            throw new Exception("No rooms found");
+        }
+
         return roomsResult;
     }
 
     @Override
     public void createBooking(Booking booking) {
-        System.out.println(booking.toString());
         bookings.add(booking);
     }
 
@@ -50,33 +61,10 @@ public class StorageWriteImpl implements StorageWrite {
         return;
     }
 
-    @Override
-    public void createRooms(Room room) {
-        rooms.add(room);
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
-
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
-    }
 
     public List<Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
-    }
 }
 

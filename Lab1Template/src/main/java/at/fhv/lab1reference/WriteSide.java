@@ -4,6 +4,7 @@ import GUI.GUI;
 import eventside.domain.Booking;
 import eventside.domain.Customer;
 import eventside.domain.Event;
+import eventside.domain.Room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,8 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import writeside.EventPublisher;
+import writeside.application.BookingService;
 import writeside.application.StorageWrite;
-import writeside.repository.StorageWriteImpl;
 
 import java.time.LocalDate;
 
@@ -22,21 +23,23 @@ import java.time.LocalDate;
 @SpringBootApplication
 @Configuration
 @ComponentScan("writeside")
-@ComponentScan("GUI")
 public class WriteSide {
 
     @Autowired
     private EventPublisher publisher;
 
     @Autowired
-    private StorageWriteImpl storageWrite;
+    private BookingService bookingService;
 
     @Autowired
-    private GUI gui;
+    StorageWrite storageWrite;
+
+
+
 
     public static void main(String[] args) {
-        GUI gui = new GUI();
-        gui.start();
+     //   GUI gui = new GUI();
+     //   gui.start();
         SpringApplication.run(WriteSide.class, args);
     }
 
@@ -49,12 +52,10 @@ public class WriteSide {
             event.setTimestamp(System.currentTimeMillis());
             System.out.println("Result: " + publisher.publishEvent(event));
 
-            //Befüllen der Store
-            Customer customer1 = new Customer(1,"Achim", "Unterkofler");
+            storageWrite.createRooms();
+            bookingService.createBooking("Achim","Unterkofler",1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
+            bookingService.createBooking("Achim","Unterkofler",2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
 
-
-            Booking booking1 = new Booking(1,customer1, LocalDate.now(),LocalDate.now().plusDays(2),storageWrite.getRooms());
-            storageWrite.createBooking(booking1);
 
             //für GUI
             /*

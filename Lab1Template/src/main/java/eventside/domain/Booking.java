@@ -8,14 +8,16 @@ public class Booking {
     private Customer customer;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<Room> bookedRooms;
+    private Room bookedRoom;
 
-    public Booking(int bookingNumber, Customer customer, LocalDate startDate, LocalDate endDate, List<Room> bookedRooms) {
+
+
+    public Booking(int bookingNumber, Customer customer, LocalDate startDate, LocalDate endDate, Room bookedRoom) {
         this.bookingNumber = bookingNumber;
         this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.bookedRooms = bookedRooms;
+        this.bookedRoom = bookedRoom;
     }
 
     public int getBookingNumber() {
@@ -34,8 +36,8 @@ public class Booking {
         return endDate;
     }
 
-    public List<Room> getBookedRooms() {
-        return bookedRooms;
+    public Room getBookedRoom() {
+        return bookedRoom;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class Booking {
                 ", customer=" + customer +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", bookedRooms=" + bookedRooms +
+                ", bookedRoom=" + bookedRoom +
                 '}';
     }
 }

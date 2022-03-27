@@ -11,7 +11,7 @@ import java.util.List;
 public interface StorageWrite {
     void createBooking(Booking booking);
     void cancelBooking(Booking booking);
-    void createRooms(Room room);
+    void createRooms();
     void add(Customer customer);
-    List<Room> getAvalibleRooms(LocalDate startDate, LocalDate endDate, int capacity);
+    List<Room> roomsByCapacity(int capacity) throws Exception;
 }
