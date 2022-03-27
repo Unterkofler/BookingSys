@@ -1,5 +1,6 @@
 package at.fhv.lab1reference;
 
+import GUI.GUI;
 import eventside.domain.Booking;
 import eventside.domain.Customer;
 import eventside.domain.Event;
@@ -14,6 +15,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import writeside.EventPublisher;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ import java.util.List;
 @SpringBootApplication
 @Configuration
 @ComponentScan("writeside")
+@ComponentScan("GUI")
 public class WriteSide {
 
     @Autowired
@@ -29,7 +33,12 @@ public class WriteSide {
     @Autowired
     private StorageWriteImpl storageWrite;
 
+    @Autowired
+    private GUI gui;
+
     public static void main(String[] args) {
+        GUI gui = new GUI();
+        gui.start();
         SpringApplication.run(WriteSide.class, args);
     }
 
@@ -44,21 +53,19 @@ public class WriteSide {
 
             //Befüllen der Store
             Customer customer1 = new Customer(1,"Achim", "Unterkofler");
-            Room room1 = new Room(1,2);
-            List<Room> roomList = new ArrayList<>();
-            roomList.add(room1);
-            
-            Booking booking1 = new Booking(1,customer1, LocalDate.now(),LocalDate.now().plusDays(2),roomList);
+
+
+            Booking booking1 = new Booking(1,customer1, LocalDate.now(),LocalDate.now().plusDays(2),storageWrite.getRooms());
             storageWrite.createBooking(booking1);
 
-            String achim = "Achim";
-            String jan = "Jan";
-            String tobi = "Tobi";
-            String fabian = "Fabian";
-            storageWrite.add(achim);
-            storageWrite.add(jan);
-            storageWrite.add(tobi);
-            storageWrite.add(fabian);
+            boolean flag = true;
+            while (flag){
+                if (storageWrite.getCustomers().size() == 1){
+                    System.out.println(gui.getFirstName());
+                    flag = false;
+                }
+            }
+
         };
     }
 }
