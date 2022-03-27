@@ -10,8 +10,6 @@ public class Booking {
     private LocalDate endDate;
     private Room bookedRoom;
 
-
-
     public Booking(int bookingNumber, Customer customer, LocalDate startDate, LocalDate endDate, Room bookedRoom) {
         this.bookingNumber = bookingNumber;
         this.customer = customer;
@@ -24,30 +22,8 @@ public class Booking {
         return bookingNumber;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
     public Room getBookedRoom() {
         return bookedRoom;
     }
 
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "bookingNumber=" + bookingNumber +
-                ", customer=" + customer +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", bookedRoom=" + bookedRoom +
-                '}';
-    }
 }

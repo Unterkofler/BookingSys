@@ -1,44 +1,32 @@
 package eventside.domain;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
     private int roomNumber;
     private int capacity;
-    private List<BookingPeriode> bookingPeriodes;
+    private List<RoomBooking> roomBookings;
 
-
-
-    public Room(int roomNumber, int capacity, boolean isFree) {
+    public Room(int roomNumber, int capacity, List<RoomBooking> roomBookings) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
+        this.roomBookings = new ArrayList<>();
     }
 
-    public int getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
+    public int getRoomNumber() { return roomNumber; }
 
     public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public List<RoomBooking> getRoomBookings() {
+        return roomBookings;
     }
 
-    public List<BookingPeriode> getBookingPeriodes() {
-        return bookingPeriodes;
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "roomNumber=" + roomNumber +
-                ", capacity=" + capacity +
-                '}';
+    public void createRoomBooking(LocalDate startDate, LocalDate endDate) {
+        RoomBooking roomBooking = new RoomBooking(startDate, endDate);
+        roomBookings.add(roomBooking);
     }
 }

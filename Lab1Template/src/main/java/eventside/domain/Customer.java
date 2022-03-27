@@ -1,7 +1,5 @@
 package eventside.domain;
 
-import java.time.LocalDate;
-
 public class Customer {
     private int customerId;
     private String firstName;
@@ -11,14 +9,5 @@ public class Customer {
         this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
     }
 }

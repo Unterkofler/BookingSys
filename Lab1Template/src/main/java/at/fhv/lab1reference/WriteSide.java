@@ -1,10 +1,6 @@
 package at.fhv.lab1reference;
 
-import GUI.GUI;
-import eventside.domain.Booking;
-import eventside.domain.Customer;
 import eventside.domain.Event;
-import eventside.domain.Room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import writeside.EventPublisher;
-import writeside.application.BookingService;
-import writeside.application.StorageWrite;
+import writeside.application.interfaces.BookingService;
+import writeside.application.interfaces.StorageWrite;
 
 import java.time.LocalDate;
 
@@ -55,6 +51,8 @@ public class WriteSide {
             storageWrite.createRooms();
             bookingService.createBooking("Achim","Unterkofler",1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
             bookingService.createBooking("Achim","Unterkofler",2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
+
+            bookingService.cancelBooking(2);
 
 
             //für GUI

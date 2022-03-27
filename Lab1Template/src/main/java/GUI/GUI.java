@@ -3,7 +3,7 @@ package GUI;
 import eventside.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import writeside.application.StorageWrite;
+import writeside.application.interfaces.StorageWrite;
 import writeside.repository.StorageWriteImpl;
 
 import javax.swing.*;

@@ -4,10 +4,12 @@ import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
-public class BookingPeriode {
-    private LocalDate startDate, endDate;
+public class RoomBooking {
+    private LocalDate startDate;
+    private LocalDate endDate;
+    //private int roomNumber;
 
-    public BookingPeriode(LocalDate startDate, LocalDate endDate) {
+    public RoomBooking(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

@@ -1,17 +1,13 @@
 package writeside.application;
-
-
-import GUI.RoomService;
 import eventside.domain.Booking;
 import eventside.domain.Customer;
 import eventside.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import writeside.application.interfaces.BookingService;
+import writeside.application.interfaces.RoomService;
+import writeside.application.interfaces.StorageWrite;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Component
 public class BookingServiceImpl implements BookingService {
@@ -30,9 +26,9 @@ public class BookingServiceImpl implements BookingService {
         Customer customer = new Customer(1, firstName, lastName);
         Room room = roomService.getAvailableRooms(startDate, endDate, capacity).get(0);
 
-        Booking booking = new Booking(1, customer, startDate, endDate, room);
+        Booking booking = new Booking(bookingNumber, customer, startDate, endDate, room);
 
-
+        room.createRoomBooking(startDate, endDate);
         storageWrite.createBooking(booking);
 
         // publisher zum Event
@@ -40,7 +36,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void cancelBooking() {
+    public void cancelBooking(int bookingNumber) throws Exception {
 
+        // TODO: Gibt es hier Exception?
+        Booking booking = storageWrite.getBookingByBookingNumber(bookingNumber);
+        roomService.removeRoomBooking(booking);
+        storageWrite.cancelBooking(bookingNumber);
+
+        // publisher zum Event
     }
 }
