@@ -1,9 +1,9 @@
 package GUI;
 
-import eventside.domain.Customer;
+import eventside.domain.ValueObjects.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import writeside.application.interfaces.StorageWrite;
+import writeside.application.interfaces.BookingRepositoryWrite;
 import writeside.repository.StorageWriteImpl;
 
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 @Component
 public final class GUI implements ActionListener{
     @Autowired
-    private StorageWrite storageWrite = new StorageWriteImpl();
+    private BookingRepositoryWrite storageWrite = new StorageWriteImpl();
     private JLabel labelFirstName, labelLastName, labelStartDate, labelEndDate;
     private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate;
     private JButton buttonConfirm;
@@ -29,7 +29,7 @@ public final class GUI implements ActionListener{
         String startDate = textFieldStartDate.getText();
         String endDate = textFieldEndDate.getText();
 
-        storageWrite.add(new Customer(1, firstName, lastName));
+        storageWrite.add(new Customer(firstName, lastName));
         JOptionPane.showMessageDialog(null, "firstName: " + firstName + '\n' +
                                                                     "lastName: " + lastName + '\n' +
                                                                     "startDate: " + startDate + '\n' +

@@ -1,5 +1,7 @@
 package eventside.domain;
 
+import eventside.domain.ValueObjects.RoomBooking;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,32 +1,33 @@
 package writeside.application;
 import eventside.domain.Booking;
-import eventside.domain.Customer;
+import eventside.domain.ValueObjects.BookingId;
+import eventside.domain.ValueObjects.Customer;
 import eventside.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import writeside.application.interfaces.BookingService;
 import writeside.application.interfaces.RoomService;
-import writeside.application.interfaces.StorageWrite;
+import writeside.application.interfaces.BookingRepositoryWrite;
 import java.time.LocalDate;
 
 @Component
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
-    StorageWrite storageWrite;
+    BookingRepositoryWrite storageWrite;
 
     @Autowired
     RoomService roomService;
 
 
     @Override
-    public void createBooking(String firstName, String lastName, int bookingNumber, LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
+    public void createBooking(String firstName, String lastName, BookingId bookingId, LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
 
         // TODO: Gibt es hier Exception?
-        Customer customer = new Customer(1, firstName, lastName);
+        Customer customer = new Customer(firstName, lastName);
         Room room = roomService.getAvailableRooms(startDate, endDate, capacity).get(0);
 
-        Booking booking = new Booking(bookingNumber, customer, startDate, endDate, room);
+        Booking booking = new Booking(bookingId, customer, startDate, endDate, room);
 
         room.createRoomBooking(startDate, endDate);
         storageWrite.createBooking(booking);
@@ -36,12 +37,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void cancelBooking(int bookingNumber) throws Exception {
+    public void cancelBooking(BookingId bookingId) throws Exception {
 
         // TODO: Gibt es hier Exception?
-        Booking booking = storageWrite.getBookingByBookingNumber(bookingNumber);
+        Booking booking = storageWrite.getBookingByBookingId(bookingId);
         roomService.removeRoomBooking(booking);
-        storageWrite.cancelBooking(bookingNumber);
+        storageWrite.cancelBooking(bookingId);
 
         // publisher zum Event
     }

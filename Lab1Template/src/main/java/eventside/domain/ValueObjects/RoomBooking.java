@@ -1,4 +1,4 @@
-package eventside.domain;
+package eventside.domain.ValueObjects;
 
 import org.springframework.cglib.core.Local;
 

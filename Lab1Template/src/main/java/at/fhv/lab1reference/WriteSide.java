@@ -2,6 +2,7 @@ package at.fhv.lab1reference;
 
 import eventside.domain.Event;
 
+import eventside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,9 +12,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import writeside.EventPublisher;
 import writeside.application.interfaces.BookingService;
-import writeside.application.interfaces.StorageWrite;
+import writeside.application.interfaces.RoomRepositoryWrite;
+import writeside.application.interfaces.BookingRepositoryWrite;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 
 @SpringBootApplication
@@ -28,7 +31,10 @@ public class WriteSide {
     private BookingService bookingService;
 
     @Autowired
-    StorageWrite storageWrite;
+    BookingRepositoryWrite storageWrite;
+
+    @Autowired
+    RoomRepositoryWrite roomRepositoryWrite;
 
 
 
@@ -48,12 +54,15 @@ public class WriteSide {
             event.setTimestamp(System.currentTimeMillis());
             System.out.println("Result: " + publisher.publishEvent(event));
 
-            storageWrite.createRooms();
-            bookingService.createBooking("Achim","Unterkofler",1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
-            bookingService.createBooking("Achim","Unterkofler",2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
+            BookingId bookingId1 = new BookingId(UUID.randomUUID());
+            BookingId bookingId2 = new BookingId(UUID.randomUUID());
 
-            bookingService.cancelBooking(2);
+            roomRepositoryWrite.createRooms();
+            bookingService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
+            bookingService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
 
+            bookingService.cancelBooking(bookingId1);
+            System.out.println("It worked");
 
             //für GUI
             /*

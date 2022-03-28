@@ -1,25 +1,27 @@
 package eventside.domain;
 
+import eventside.domain.ValueObjects.BookingId;
+import eventside.domain.ValueObjects.Customer;
+
 import java.time.LocalDate;
-import java.util.List;
 
 public class Booking {
-    private int bookingNumber;
+    private BookingId bookingId;
     private Customer customer;
     private LocalDate startDate;
     private LocalDate endDate;
     private Room bookedRoom;
 
-    public Booking(int bookingNumber, Customer customer, LocalDate startDate, LocalDate endDate, Room bookedRoom) {
-        this.bookingNumber = bookingNumber;
+    public Booking(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, Room bookedRoom) {
+        this.bookingId = bookingId;
         this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
         this.bookedRoom = bookedRoom;
     }
 
-    public int getBookingNumber() {
-        return bookingNumber;
+    public BookingId getBookingId() {
+        return bookingId;
     }
 
     public Room getBookedRoom() {
