@@ -22,33 +22,33 @@ public class RoomServiceImpl implements RoomService {
         List<Room> rooms = new ArrayList<>();
         List<Room> roomsByCapacity = roomRepository.roomsByCapacity(capacity);
 
-        rooms.add(roomsByCapacity.get(0));
+        // Todo: Überarbeiten
+            for (Room room : roomsByCapacity) {
+                int i = 0;
 
-       /* for (Room room : roomsByCapacity) {
 
-            // Todo: Trubbles
-             for (int i = 0; i < 5; i++) {
-
-                if (room.getRoomBookings() == null) {
-                    rooms.add(room);
-                } else if ((!(room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
-                        && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
-                    rooms.add(room);
+                    if (room.getRoomBookings().size() == 0) {
+                        rooms.add(room);
+                    } else if ((!(room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
+                            && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
+                        rooms.add(room);
+                    }
+                    i++;
                 }
-            } */
 
 
-        if (rooms.size() == 0) {
-            throw new Exception("No rooms found");
-        }
+            if (rooms.size() == 0) {
+                throw new Exception("No rooms found");
+            }
 
         return rooms;
-    }
+        }
 
     @Override
     public void removeRoomBooking(Booking booking) throws Exception {
-       Room room = roomRepository.getRoomByRoomNumber(booking.getBookedRoom().getRoomNumber());
+        Room room = roomRepository.getRoomByRoomNumber(booking.getBookedRoom().getRoomNumber());
 
-       roomRepository.cancelRoomBooking(room);
+        roomRepository.cancelRoomBooking(room);
     }
 }
+

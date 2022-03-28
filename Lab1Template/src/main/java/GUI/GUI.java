@@ -29,7 +29,7 @@ public final class GUI implements ActionListener{
         String startDate = textFieldStartDate.getText();
         String endDate = textFieldEndDate.getText();
 
-        storageWrite.add(new Customer(firstName, lastName));
+      //  storageWrite.add(new Customer(firstName, lastName));
         JOptionPane.showMessageDialog(null, "firstName: " + firstName + '\n' +
                                                                     "lastName: " + lastName + '\n' +
                                                                     "startDate: " + startDate + '\n' +
