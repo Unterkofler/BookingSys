@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import writeside.application.interfaces.RoomRepositoryWrite;
 import writeside.application.interfaces.RoomService;
-import writeside.repository.StorageWriteImpl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,12 +15,12 @@ import java.util.List;
 public class RoomServiceImpl implements RoomService {
 
     @Autowired
-    private RoomRepositoryWrite roomRepositoryWrite;
+    private RoomRepositoryWrite roomRepository;
 
     @Override
     public List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
         List<Room> rooms = new ArrayList<>();
-        List<Room> roomsByCapacity = roomRepositoryWrite.roomsByCapacity(capacity);
+        List<Room> roomsByCapacity = roomRepository.roomsByCapacity(capacity);
 
         rooms.add(roomsByCapacity.get(0));
 
@@ -48,8 +47,8 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void removeRoomBooking(Booking booking) throws Exception {
-       Room room = roomRepositoryWrite.getRoomByRoomNumber(booking.getBookedRoom().getRoomNumber());
+       Room room = roomRepository.getRoomByRoomNumber(booking.getBookedRoom().getRoomNumber());
 
-       roomRepositoryWrite.cancelRoomBooking(room);
+       roomRepository.cancelRoomBooking(room);
     }
 }

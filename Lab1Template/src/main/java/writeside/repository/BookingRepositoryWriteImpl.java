@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Component
-public class StorageWriteImpl implements BookingRepositoryWrite {
+public class BookingRepositoryWriteImpl implements BookingRepositoryWrite {
     //private List<Customer> customers = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
 

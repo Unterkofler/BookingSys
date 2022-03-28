@@ -11,6 +11,7 @@ public class Room {
     private int capacity;
     private List<RoomBooking> roomBookings;
 
+    //TODO: Achim ansehen
     public Room(int roomNumber, int capacity, List<RoomBooking> roomBookings) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;

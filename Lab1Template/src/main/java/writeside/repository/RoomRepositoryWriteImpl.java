@@ -28,6 +28,7 @@ public class RoomRepositoryWriteImpl implements RoomRepositoryWrite {
                 return room;
             }
         }
+
         throw new Exception("No rooms found exception");
     }
 
@@ -61,6 +62,7 @@ public class RoomRepositoryWriteImpl implements RoomRepositoryWrite {
             }
             i++;
         }
+
         throw new Exception("Booking not found exception");
     }
 }

@@ -1,9 +1,6 @@
 package writeside.application.interfaces;
 
-import eventside.domain.Booking;
-import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
-
 import java.time.LocalDate;
 
 public interface BookingService {

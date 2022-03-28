@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
-    BookingRepositoryWrite storageWrite;
+    BookingRepositoryWrite bookingRepository;
 
     @Autowired
     RoomService roomService;
@@ -26,11 +26,10 @@ public class BookingServiceImpl implements BookingService {
         // TODO: Gibt es hier Exception?
         Customer customer = new Customer(firstName, lastName);
         Room room = roomService.getAvailableRooms(startDate, endDate, capacity).get(0);
-
         Booking booking = new Booking(bookingId, customer, startDate, endDate, room);
 
         room.createRoomBooking(startDate, endDate);
-        storageWrite.createBooking(booking);
+        bookingRepository.createBooking(booking);
 
         // publisher zum Event
 
@@ -40,9 +39,10 @@ public class BookingServiceImpl implements BookingService {
     public void cancelBooking(BookingId bookingId) throws Exception {
 
         // TODO: Gibt es hier Exception?
-        Booking booking = storageWrite.getBookingByBookingId(bookingId);
+        Booking booking = bookingRepository.getBookingByBookingId(bookingId);
+
         roomService.removeRoomBooking(booking);
-        storageWrite.cancelBooking(bookingId);
+        bookingRepository.cancelBooking(bookingId);
 
         // publisher zum Event
     }

@@ -1,7 +1,6 @@
 package writeside.application.interfaces;
 
 import eventside.domain.Room;
-
 import java.util.List;
 
 public interface RoomRepositoryWrite {
