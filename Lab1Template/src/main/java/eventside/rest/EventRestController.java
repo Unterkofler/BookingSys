@@ -1,11 +1,11 @@
 package eventside.rest;
 
 import eventside.EventRepository;
-import eventside.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import writeside.event.Event;
 
 @RestController
 public class EventRestController {
@@ -20,4 +20,22 @@ public class EventRestController {
         System.out.println("Event received: " + event);
         return true;
     }
+
+    @PostMapping(value = "/event/bookingCreated", consumes = "application/json", produces = "application/json")
+    public boolean bookingCreated(@RequestBody Event event) {
+        // TODO: process event in repository
+        repository.processEvent(event);
+        System.out.println("Event received: " + event);
+        return true;
+    }
+
+    @PostMapping(value = "/event/bookingCanceled", consumes = "application/json", produces = "application/json")
+    public boolean bookingCanceled(@RequestBody Event event) {
+        // TODO: process event in repository
+        repository.processEvent(event);
+        System.out.println("Event received: " + event);
+        return true;
+    }
+
+
 }

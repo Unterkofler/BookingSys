@@ -1,18 +1,19 @@
-package eventside.domain;
+package writeside.event;
 
+import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
 import eventside.domain.ValueObjects.Customer;
 
 import java.time.LocalDate;
 
-public class Booking {
+public class BookingCreated extends Event {
     private BookingId bookingId;
     private Customer customer;
     private LocalDate startDate;
     private LocalDate endDate;
     private Room bookedRoom;
 
-    public Booking(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, Room bookedRoom) {
+    public BookingCreated(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, Room bookedRoom) {
         this.bookingId = bookingId;
         this.customer = customer;
         this.startDate = startDate;
@@ -24,19 +25,39 @@ public class Booking {
         return bookingId;
     }
 
+    public void setBookingId(BookingId bookingId) {
+        this.bookingId = bookingId;
+    }
+
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public LocalDate getStartDate() {
         return startDate;
     }
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
     public LocalDate getEndDate() {
         return endDate;
     }
 
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     public Room getBookedRoom() {
         return bookedRoom;
+    }
+
+    public void setBookedRoom(Room bookedRoom) {
+        this.bookedRoom = bookedRoom;
     }
 }

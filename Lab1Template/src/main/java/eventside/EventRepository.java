@@ -1,7 +1,7 @@
 package eventside;
 
-import eventside.domain.Event;
 import org.springframework.stereotype.Component;
+import writeside.event.Event;
 
 import java.util.ArrayList;
 import java.util.List;
