@@ -1,13 +1,12 @@
 package writeside.event;
 
-import eventside.domain.Event;
 import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
 import eventside.domain.ValueObjects.Customer;
 
 import java.time.LocalDate;
 
-public class BookingCreated extends AbstractEvent {
+public class BookingCreated extends Event {
     private BookingId bookingId;
     private Customer customer;
     private LocalDate startDate;

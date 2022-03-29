@@ -24,8 +24,19 @@ public class Booking {
         return bookingId;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
     public Room getBookedRoom() {
         return bookedRoom;
     }
-
 }

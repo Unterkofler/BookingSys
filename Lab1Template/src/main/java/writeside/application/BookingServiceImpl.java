@@ -5,19 +5,24 @@ import eventside.domain.ValueObjects.Customer;
 import eventside.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import writeside.EventPublisher;
 import writeside.application.interfaces.BookingService;
-import writeside.application.interfaces.RoomService;
-import writeside.application.interfaces.BookingRepositoryWrite;
+import writeside.application.interfaces.StoreRepositoryWrite;
+import writeside.event.BookingCanceled;
+import writeside.event.BookingCreated;
+import writeside.event.Event;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
-    BookingRepositoryWrite bookingRepository;
+    StoreRepositoryWrite storeRepository;
 
-    @Autowired
-    RoomService roomService;
+    private EventPublisher eventPublisher = new EventPublisher();
 
 
     @Override
@@ -25,25 +30,62 @@ public class BookingServiceImpl implements BookingService {
 
         // TODO: Gibt es hier Exception?
         Customer customer = new Customer(firstName, lastName);
-        Room room = roomService.getAvailableRooms(startDate, endDate, capacity).get(0);
+        Room room = getAvailableRooms(startDate, endDate, capacity).get(0);
         Booking booking = new Booking(bookingId, customer, startDate, endDate, room);
 
         room.createRoomBooking(startDate, endDate);
-        bookingRepository.createBooking(booking);
+        storeRepository.createBooking(booking);
 
-        // publisher zum Event
 
+        Event event = new BookingCreated(booking.getBookingId(),booking.getCustomer(), booking.getStartDate(),booking.getEndDate(), booking.getBookedRoom());
+        eventPublisher.bookingCreated(event);
     }
 
     @Override
     public void cancelBooking(BookingId bookingId) throws Exception {
 
         // TODO: Gibt es hier Exception?
-        Booking booking = bookingRepository.getBookingByBookingId(bookingId);
+        Booking booking = storeRepository.getBookingByBookingId(bookingId);
 
-        roomService.removeRoomBooking(booking);
-        bookingRepository.cancelBooking(bookingId);
+        removeRoomBooking(booking);
+        storeRepository.cancelBooking(bookingId);
 
-        // publisher zum Event
+        Event event = new BookingCanceled(booking.getBookingId());
+        System.out.println(event);
+        eventPublisher.publishBookingCanceled(event);
+    }
+
+    @Override
+    public List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
+        List<Room> rooms = new ArrayList<>();
+        List<Room> roomsByCapacity = storeRepository.roomsByCapacity(capacity);
+
+        // Todo: Überarbeiten
+        for (Room room : roomsByCapacity) {
+            int i = 0;
+
+
+            if (room.getRoomBookings().size() == 0) {
+                rooms.add(room);
+            } else if ((!(room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
+                    && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
+                rooms.add(room);
+            }
+            i++;
+        }
+
+
+        if (rooms.size() == 0) {
+            throw new Exception("No rooms found");
+        }
+
+        return rooms;
+    }
+
+    @Override
+    public void removeRoomBooking(Booking booking) throws Exception {
+        Room room = storeRepository.getRoomByRoomNumber(booking.getBookedRoom().getRoomNumber());
+
+        storeRepository.cancelRoomBooking(room);
     }
 }

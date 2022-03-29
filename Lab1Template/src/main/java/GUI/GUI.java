@@ -1,10 +1,9 @@
 package GUI;
 
-import eventside.domain.ValueObjects.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import writeside.application.interfaces.BookingRepositoryWrite;
-import writeside.repository.BookingRepositoryWriteImpl;
+import writeside.application.interfaces.StoreRepositoryWrite;
+import writeside.repository.StoreRepositoryWriteImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,7 @@ import java.awt.event.ActionListener;
 @Component
 public final class GUI implements ActionListener{
     @Autowired
-    private BookingRepositoryWrite storageWrite = new BookingRepositoryWriteImpl();
+    private StoreRepositoryWrite storageWrite = new StoreRepositoryWriteImpl();
     private JLabel labelFirstName, labelLastName, labelStartDate, labelEndDate;
     private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate;
     private JButton buttonConfirm;

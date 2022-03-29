@@ -1,9 +1,11 @@
 package writeside.repository;
 
+import eventside.domain.Booking;
 import eventside.domain.Room;
+import eventside.domain.ValueObjects.BookingId;
 import eventside.domain.ValueObjects.RoomBooking;
 import org.springframework.stereotype.Component;
-import writeside.application.interfaces.RoomRepositoryWrite;
+import writeside.application.interfaces.StoreRepositoryWrite;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,8 +13,42 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-public class RoomRepositoryWriteImpl implements RoomRepositoryWrite {
+public class StoreRepositoryWriteImpl implements StoreRepositoryWrite {
+    //private List<Customer> customers = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
+
+    @Override
+    public void createBooking(Booking booking) {
+        //TODO: Exception
+        bookings.add(booking);
+
+    }
+
+    @Override
+    public void cancelBooking(BookingId bookingId) throws Exception {
+        Iterator bookingIterator = bookings.iterator();
+
+        while (bookingIterator.hasNext()) {
+            Booking booking = (Booking) bookingIterator.next();
+
+            if (booking.getBookingId() == bookingId) {
+                bookingIterator.remove();
+                return;
+            }
+        }
+        throw new Exception("Booking not found exception");
+    }
+
+    @Override
+    public Booking getBookingByBookingId(BookingId bookingId) throws Exception {
+        for (Booking booking : bookings) {
+            if (booking.getBookingId() == bookingId) {
+                return booking;
+            }
+        }
+        throw new Exception("Booking not found exception");
+    }
 
     public void createRooms() {
         for (int i = 0; i < 50; i++) {
@@ -65,4 +101,11 @@ public class RoomRepositoryWriteImpl implements RoomRepositoryWrite {
 
         throw new Exception("Booking not found exception");
     }
+
+
+        /*public void add(Customer customer) {
+        boolean isadded = this.customers.add(customer);
+    } */
 }
+
+

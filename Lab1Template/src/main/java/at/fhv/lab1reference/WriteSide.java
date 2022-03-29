@@ -1,7 +1,5 @@
 package at.fhv.lab1reference;
 
-import eventside.domain.Event;
-
 import eventside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,8 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import writeside.EventPublisher;
 import writeside.application.interfaces.BookingService;
-import writeside.application.interfaces.RoomRepositoryWrite;
-import writeside.application.interfaces.BookingRepositoryWrite;
+import writeside.application.interfaces.StoreRepositoryWrite;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -31,10 +28,7 @@ public class WriteSide {
     private BookingService bookingService;
 
     @Autowired
-    BookingRepositoryWrite storageWrite;
-
-    @Autowired
-    RoomRepositoryWrite roomRepositoryWrite;
+    StoreRepositoryWrite storageWrite;
 
 
 
@@ -48,20 +42,21 @@ public class WriteSide {
     @Bean
     public CommandLineRunner run() throws Exception {
         return args -> {
-            Event event = new Event();
+            /*Event event = new Event();
             event.setContent("This is the content!");
             event.setCustomer("Customer1");
             event.setTimestamp(System.currentTimeMillis());
             System.out.println("Result: " + publisher.publishEvent(event));
+            //System.out.println("Result: " + publisher.publishEvent(event)); */
 
             BookingId bookingId1 = new BookingId(UUID.randomUUID());
             BookingId bookingId2 = new BookingId(UUID.randomUUID());
 
-            roomRepositoryWrite.createRooms();
+            storageWrite.createRooms();
             bookingService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
             bookingService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
-
             bookingService.cancelBooking(bookingId1);
+
             System.out.println("It worked");
 
             //für GUI

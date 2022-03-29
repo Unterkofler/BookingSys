@@ -5,8 +5,13 @@ public class BookingId {
 
     private UUID bookingId;
 
-    public BookingId(UUID uuid) {
+    public BookingId(){
     }
+
+    public BookingId(UUID bookingId) {
+        this.bookingId = bookingId;
+    }
+
 
     public UUID getBookingId() {
         return bookingId;

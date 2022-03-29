@@ -4,7 +4,7 @@ import eventside.domain.ValueObjects.RoomBooking;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomAdded extends AbstractEvent{
+public class RoomAdded extends Event {
     private int roomNumber;
     private int capacity;
     private List<RoomBooking> roomBookings;

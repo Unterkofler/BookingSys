@@ -1,11 +1,13 @@
 package writeside;
 
-import eventside.domain.Event;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import writeside.event.Event;
+
 
 @Component
 public class EventPublisher {
@@ -41,11 +43,11 @@ public class EventPublisher {
                 .block();
     }
 
-    public Boolean publishBookingCreated(Event event){
+    public Boolean bookingCreated(Event event){
         System.out.println(event);
         return localApiClient
                 .post()
-                .uri("/event/bookingCreated")
+                .uri("/event/bookingCreated/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(event), Event.class)
@@ -66,6 +68,4 @@ public class EventPublisher {
                 .bodyToMono(Boolean.class)
                 .block();
     }
-
-
 }
