@@ -27,4 +27,45 @@ public class EventPublisher {
                 .bodyToMono(Boolean.class)
                 .block();
     }
+
+    public Boolean publishRoomAdded(Event event){
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/roomAdded")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+    public Boolean publishBookingCreated(Event event){
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/bookingCreated")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+    public Boolean publishBookingCanceled(Event event){
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/bookingCanceled")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+
 }
