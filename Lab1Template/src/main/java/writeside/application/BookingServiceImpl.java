@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import writeside.EventPublisher;
 import writeside.application.interfaces.BookingService;
-import writeside.application.interfaces.StoreRepositoryWrite;
+import writeside.application.interfaces.RepositoryWrite;
 import writeside.event.BookingCanceled;
 import writeside.event.BookingCreated;
 import writeside.event.Event;
@@ -20,7 +20,7 @@ import java.util.List;
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
-    StoreRepositoryWrite storeRepository;
+    RepositoryWrite storeRepository;
 
     private EventPublisher eventPublisher = new EventPublisher();
 

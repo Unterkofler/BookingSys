@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import writeside.EventPublisher;
 import writeside.application.interfaces.BookingService;
-import writeside.application.interfaces.StoreRepositoryWrite;
+import writeside.application.interfaces.RepositoryWrite;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -28,7 +28,7 @@ public class WriteSide {
     private BookingService bookingService;
 
     @Autowired
-    StoreRepositoryWrite storageWrite;
+    RepositoryWrite storageWrite;
 
 
 

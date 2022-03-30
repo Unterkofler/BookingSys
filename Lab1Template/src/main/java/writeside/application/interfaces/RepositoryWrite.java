@@ -7,7 +7,7 @@ import eventside.domain.ValueObjects.BookingId;
 import java.util.List;
 
 
-public interface StoreRepositoryWrite {
+public interface RepositoryWrite {
     void createBooking(Booking booking);
     void cancelBooking(BookingId bookingId) throws Exception;
     Booking getBookingByBookingId(BookingId bookingId) throws Exception;

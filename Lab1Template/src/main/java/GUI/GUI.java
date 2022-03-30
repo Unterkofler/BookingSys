@@ -2,8 +2,8 @@ package GUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import writeside.application.interfaces.StoreRepositoryWrite;
-import writeside.repository.StoreRepositoryWriteImpl;
+import writeside.application.interfaces.RepositoryWrite;
+import writeside.repository.RepositoryWriteImpl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 @Component
 public final class GUI implements ActionListener{
     @Autowired
-    private StoreRepositoryWrite storageWrite = new StoreRepositoryWriteImpl();
+    private RepositoryWrite storageWrite = new RepositoryWriteImpl();
     private JLabel labelFirstName, labelLastName, labelStartDate, labelEndDate;
     private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate;
     private JButton buttonConfirm;

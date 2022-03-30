@@ -5,7 +5,7 @@ import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
 import eventside.domain.ValueObjects.RoomBooking;
 import org.springframework.stereotype.Component;
-import writeside.application.interfaces.StoreRepositoryWrite;
+import writeside.application.interfaces.RepositoryWrite;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-public class StoreRepositoryWriteImpl implements StoreRepositoryWrite {
+public class RepositoryWriteImpl implements RepositoryWrite {
     //private List<Customer> customers = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
