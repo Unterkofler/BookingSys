@@ -28,7 +28,7 @@ public class WriteSide {
     private BookingService bookingService;
 
     @Autowired
-    RepositoryWrite storageWrite;
+    private RepositoryWrite storageWrite;
 
 
 

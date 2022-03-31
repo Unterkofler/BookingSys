@@ -31,13 +31,13 @@ public class BookingServiceImpl implements BookingService {
         // TODO: Gibt es hier Exception?
         Customer customer = new Customer(firstName, lastName);
         Room room = getAvailableRooms(startDate, endDate, capacity).get(0);
-        Booking booking = new Booking(bookingId, customer, startDate, endDate, room);
+        Booking booking = new Booking(bookingId, customer, startDate, endDate, room.getRoomNumber());
 
         room.createRoomBooking(startDate, endDate);
         storeRepository.createBooking(booking);
 
 
-        Event event = new BookingCreated(booking.getBookingId(),booking.getCustomer(), booking.getStartDate(),booking.getEndDate(), booking.getBookedRoom());
+        Event event = new BookingCreated(booking.getBookingId(),booking.getCustomer(), booking.getStartDate(),booking.getEndDate(), booking.getRoomId());
         eventPublisher.bookingCreated(event);
     }
 
@@ -84,7 +84,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void removeRoomBooking(Booking booking) throws Exception {
-        Room room = storeRepository.getRoomByRoomNumber(booking.getBookedRoom().getRoomNumber());
+        Room room = storeRepository.getRoomByRoomNumber(booking.getRoomId());
 
         storeRepository.cancelRoomBooking(room);
     }

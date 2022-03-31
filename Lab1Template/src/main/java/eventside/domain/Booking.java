@@ -10,14 +10,22 @@ public class Booking {
     private Customer customer;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Room bookedRoom;
+    private int roomId;
 
-    public Booking(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, Room bookedRoom) {
+    public Booking(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, int roomId) {
         this.bookingId = bookingId;
         this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.bookedRoom = bookedRoom;
+        this.roomId = roomId;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     public BookingId getBookingId() {
@@ -34,9 +42,5 @@ public class Booking {
 
     public LocalDate getEndDate() {
         return endDate;
-    }
-
-    public Room getBookedRoom() {
-        return bookedRoom;
     }
 }

@@ -18,6 +18,8 @@ public class Room {
         this.roomBookings = new ArrayList<>();
     }
 
+
+
     public int getRoomNumber() { return roomNumber; }
 
     public int getCapacity() {

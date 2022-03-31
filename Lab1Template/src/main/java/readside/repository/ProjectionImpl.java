@@ -19,7 +19,7 @@ public class ProjectionImpl implements Projection{
         event = (BookingCreated) event;
         BookingDTO bookingDTO = new BookingDTO(((BookingCreated) event).getBookingId(),
                 ((BookingCreated) event).getCustomer(),((BookingCreated) event).getStartDate(),
-                ((BookingCreated) event).getEndDate(),((BookingCreated) event).getBookedRoom());
+                ((BookingCreated) event).getEndDate(),((BookingCreated) event).getRoomId());
         repositoryRead.addBooking(bookingDTO);
     }
 
