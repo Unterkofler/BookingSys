@@ -1,5 +1,6 @@
 package at.fhv.lab1reference;
 
+import GUI.GUI;
 import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +19,29 @@ import java.util.UUID;
 @SpringBootApplication
 @Configuration
 @ComponentScan("writeside")
+@ComponentScan("GUI")
 public class WriteSide {
 
 
     @Autowired
     private HotelService hotelService;
 
+    @Autowired
+    private GUI gui;
+
 
 
 
 
     public static void main(String[] args) {
-     //   GUI gui = new GUI();
-     //   gui.start();
+      GUI gui = new GUI();
+        gui.start();
         SpringApplication.run(WriteSide.class, args);
     }
 
     @Bean
     public CommandLineRunner run() throws Exception {
         return args -> {
-            /*Event event = new Event();
-            event.setContent("This is the content!");
-            event.setCustomer("Customer1");
-            event.setTimestamp(System.currentTimeMillis());
-            System.out.println("Result: " + publisher.publishEvent(event));
-            //System.out.println("Result: " + publisher.publishEvent(event)); */
 
             BookingId bookingId1 = new BookingId(UUID.randomUUID());
             BookingId bookingId2 = new BookingId(UUID.randomUUID());

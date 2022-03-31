@@ -1,7 +1,10 @@
 package GUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import writeside.application.interfaces.RepositoryWrite;
 import writeside.repository.RepositoryWriteImpl;
 
@@ -11,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @Component
+@Service
 public final class GUI implements ActionListener{
     @Autowired
     private RepositoryWrite storageWrite = new RepositoryWriteImpl();
