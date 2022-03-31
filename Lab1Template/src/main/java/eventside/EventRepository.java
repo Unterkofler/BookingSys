@@ -1,5 +1,8 @@
 package eventside;
 
+import eventside.publisher.Publisher;
+import eventside.publisher.PublisherToRead;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import writeside.event.BookingCanceled;
 import writeside.event.BookingCreated;
@@ -13,15 +16,19 @@ public class EventRepository {
 
     private List<Event> events = new ArrayList<>();
 
+    @Autowired
+    private PublisherToRead publisher;
+
+
     public void processEvent(Event event) {
         events.add(event);
 
-       /* switch (event){
-            case event instanceof BookingCreated:
-                break;
-            case event instanceof BookingCanceled:
-                break;
-        } */
-
+        if(event instanceof BookingCreated){
+            publisher.bookingCreated(event);
+        } else if(event instanceof BookingCanceled){
+            publisher.publishBookingCanceled(event);
+        } else {
+            System.out.println("Failure");
+        }
     }
 }
