@@ -19,15 +19,12 @@ import java.util.UUID;
 @SpringBootApplication
 @Configuration
 @ComponentScan("writeside")
-@ComponentScan("GUI")
 public class WriteSide {
 
 
     @Autowired
     private HotelService hotelService;
 
-    @Autowired
-    private GUI gui;
 
 
 
@@ -35,7 +32,7 @@ public class WriteSide {
 
     public static void main(String[] args) {
       GUI gui = new GUI();
-        gui.start();
+      //  gui.start();
         SpringApplication.run(WriteSide.class, args);
     }
 
