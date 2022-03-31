@@ -52,4 +52,12 @@ public class EventRestController {
         System.out.println("Event received: " + event);
         return true;
     }
+
+    @PostMapping(value = "/event/roomBookingCanceled", consumes = "application/json", produces = "application/json")
+    public boolean roomBookingCanceled(@RequestBody Event event) {
+        // TODO: process event in readside.repository
+        repository.processEvent(event);
+        System.out.println("Event received: " + event);
+        return true;
+    }
 }

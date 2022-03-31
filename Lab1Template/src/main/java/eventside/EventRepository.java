@@ -4,9 +4,7 @@ import eventside.publisher.Publisher;
 import eventside.publisher.PublisherToRead;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import writeside.event.BookingCanceled;
-import writeside.event.BookingCreated;
-import writeside.event.Event;
+import writeside.event.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +25,12 @@ public class EventRepository {
             publisher.bookingCreated(event);
         } else if(event instanceof BookingCanceled){
             publisher.publishBookingCanceled(event);
-        } else {
-            System.out.println("Failure");
+        } else if(event instanceof RoomCreated){
+            publisher.roomCreated(event);
+        } else if(event instanceof RoomBookingCreated){
+           publisher.roomBookingCreated(event);
+        } else if(event instanceof RoomBookingCanceled){
+            publisher.roomBookingCanceled(event);
         }
     }
 }

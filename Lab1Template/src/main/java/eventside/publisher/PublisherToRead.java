@@ -15,6 +15,20 @@ public class PublisherToRead implements Publisher{
     }
 
     @Override
+    public Boolean roomCreated(Event event) {
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/roomCreated")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+    @Override
     public Boolean bookingCreated(Event event) {
         System.out.println(event);
         return localApiClient
@@ -34,6 +48,34 @@ public class PublisherToRead implements Publisher{
         return localApiClient
                 .post()
                 .uri("/event/bookingCanceled")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+    @Override
+    public Boolean roomBookingCreated(Event event) {
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/roomBookingCreated")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+    @Override
+    public Boolean roomBookingCanceled(Event event) {
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/roomBookingCanceled")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(event), Event.class)

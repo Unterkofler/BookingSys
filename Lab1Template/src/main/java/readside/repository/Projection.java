@@ -6,5 +6,7 @@ public interface Projection {
     void createBooking(Event event);
     void cancelBooking(Event event) throws Exception;
 
-    //void addRoom(Event event);
+    void createRoom(Event event);
+    void createRoomBooking(Event event);
+    void roomBookingCanceled(Event event);
 }

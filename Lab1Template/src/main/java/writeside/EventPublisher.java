@@ -81,4 +81,17 @@ public class EventPublisher {
                 .bodyToMono(Boolean.class)
                 .block();
     }
+
+    public Boolean publishRoomBookingCanceled(Event event){
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/roomBookingCanceled/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
 }
