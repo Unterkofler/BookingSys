@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +21,15 @@ import java.util.UUID;
 @SpringBootApplication
 @Configuration
 @ComponentScan("writeside")
+@ComponentScan("GUI")
 public class WriteSide {
 
 
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private GUI gui;
 
 
 
@@ -33,7 +39,10 @@ public class WriteSide {
     public static void main(String[] args) {
       GUI gui = new GUI();
       //  gui.start();
-        SpringApplication.run(WriteSide.class, args);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(WriteSide.class);
+        builder.headless(false);
+        ConfigurableApplicationContext context = builder.run(args);
+        //SpringApplication.run(WriteSide.class, args);
     }
 
     @Bean
@@ -50,13 +59,13 @@ public class WriteSide {
             hotelService.createRoom(new Room(4,2,null));
             hotelService.createRoom(new Room(5,2,null));
 
-            // TODO: Problem hier
             hotelService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
             hotelService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
             hotelService.cancelBooking(bookingId1);
 
             System.out.println("It worked");
 
+            gui.start();
             //für GUI
             /*
             boolean flag = true;

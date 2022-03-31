@@ -1,10 +1,12 @@
 package GUI;
 
+import eventside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import writeside.application.interfaces.HotelService;
 import writeside.application.interfaces.RepositoryWrite;
 import writeside.repository.RepositoryWriteImpl;
 
@@ -12,12 +14,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Component
 @Service
 public final class GUI implements ActionListener{
     @Autowired
     private RepositoryWrite storageWrite = new RepositoryWriteImpl();
+
+    @Autowired
+    private HotelService hotelService;
+
     private JLabel labelFirstName, labelLastName, labelStartDate, labelEndDate;
     private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate;
     private JButton buttonConfirm;
@@ -89,13 +97,24 @@ public final class GUI implements ActionListener{
         panel.add(textFieldEndDate);
         panel.add(textFieldStartDate);
 
-        frame = new JFrame();
-        frame.setTitle("BookRoom");
+        //hier kommt die Exception Achim!!!
+        frame = new JFrame("BookRoom");
+        //frame.setTitle("BookRoom");
         frame.setLocation(new Point(500, 300));
         frame.add(panel);
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        buttonConfirm.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    hotelService.createBooking("Tobias","Kurz",new BookingId(UUID.randomUUID()), LocalDate.now(),LocalDate.now(),2);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 
     public String getFirstName() {

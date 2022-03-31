@@ -1,13 +1,12 @@
 package readside.REST;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import readside.repository.Projection;
 import writeside.event.Event;
 
 @RestController
+@RequestMapping(value = "/event/", method = RequestMethod.GET)
 public class ReadRESTController {
 
     @Autowired
