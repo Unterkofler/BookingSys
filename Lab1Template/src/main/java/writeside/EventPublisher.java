@@ -30,11 +30,11 @@ public class EventPublisher {
                 .block();
     }
 
-    public Boolean publishRoomAdded(Event event){
+    public Boolean publishRoomCreated(Event event){
         System.out.println(event);
         return localApiClient
                 .post()
-                .uri("/event/roomAdded")
+                .uri("/event/roomCreated")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(event), Event.class)
@@ -61,6 +61,19 @@ public class EventPublisher {
         return localApiClient
                 .post()
                 .uri("/event/bookingCanceled")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+    public Boolean publishRoomBookingCreated(Event event){
+        System.out.println(event);
+        return localApiClient
+                .post()
+                .uri("/event/roomBookingCreated")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(event), Event.class)

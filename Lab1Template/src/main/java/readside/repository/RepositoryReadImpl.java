@@ -1,10 +1,12 @@
 package readside.repository;
 
 import eventside.domain.ValueObjects.BookingId;
+import org.springframework.stereotype.Component;
 import readside.DTO.BookingDTO;
 
 import java.util.HashMap;
 
+@Component
 public class RepositoryReadImpl implements RepositoryRead{
 
     private HashMap<BookingId, BookingDTO> hashMap = new HashMap<>();
@@ -21,5 +23,9 @@ public class RepositoryReadImpl implements RepositoryRead{
             throw new Exception("BookingId not found");
         }
 
+    }
+
+    public HashMap<BookingId,BookingDTO> getAllBookings(){
+        return hashMap;
     }
 }

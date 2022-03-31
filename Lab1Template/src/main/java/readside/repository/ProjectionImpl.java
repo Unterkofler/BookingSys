@@ -8,6 +8,7 @@ import readside.DTO.BookingDTO;
 import writeside.event.BookingCanceled;
 import writeside.event.BookingCreated;
 import writeside.event.Event;
+import java.beans.JavaBean;
 
 @Component
 public class ProjectionImpl implements Projection{

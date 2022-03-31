@@ -1,5 +1,6 @@
 package at.fhv.lab1reference;
 
+import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -8,9 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import writeside.EventPublisher;
-import writeside.application.interfaces.BookingService;
-import writeside.application.interfaces.RepositoryWrite;
+import writeside.application.interfaces.HotelService;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,14 +20,10 @@ import java.util.UUID;
 @ComponentScan("writeside")
 public class WriteSide {
 
-    @Autowired
-    private EventPublisher publisher;
 
     @Autowired
-    private BookingService bookingService;
+    private HotelService hotelService;
 
-    @Autowired
-    private RepositoryWrite storageWrite;
 
 
 
@@ -52,10 +47,17 @@ public class WriteSide {
             BookingId bookingId1 = new BookingId(UUID.randomUUID());
             BookingId bookingId2 = new BookingId(UUID.randomUUID());
 
-            storageWrite.createRooms();
-            bookingService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
-            bookingService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
-            bookingService.cancelBooking(bookingId1);
+
+            hotelService.createRoom(new Room(1,2,null));
+            hotelService.createRoom(new Room(2,2,null));
+            hotelService.createRoom(new Room(3,2,null));
+            hotelService.createRoom(new Room(4,2,null));
+            hotelService.createRoom(new Room(5,2,null));
+
+            // TODO: Problem hier
+            hotelService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
+            hotelService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
+            hotelService.cancelBooking(bookingId1);
 
             System.out.println("It worked");
 

@@ -1,17 +1,15 @@
-package eventside.domain.ValueObjects;
-
-import org.springframework.cglib.core.Local;
+package writeside.event;
 
 import java.time.LocalDate;
 
-public class RoomBooking {
+public class RoomBookingCreated extends Event{
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public RoomBooking() {
+    public RoomBookingCreated() {
     }
 
-    public RoomBooking(LocalDate startDate, LocalDate endDate) {
+    public RoomBookingCreated(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

@@ -1,6 +1,8 @@
 package eventside;
 
 import org.springframework.stereotype.Component;
+import writeside.event.BookingCanceled;
+import writeside.event.BookingCreated;
 import writeside.event.Event;
 
 import java.util.ArrayList;
@@ -13,6 +15,13 @@ public class EventRepository {
 
     public void processEvent(Event event) {
         events.add(event);
-        // TODO: notify subscribed read repositories
+
+       /* switch (event){
+            case event instanceof BookingCreated:
+                break;
+            case event instanceof BookingCanceled:
+                break;
+        } */
+
     }
 }

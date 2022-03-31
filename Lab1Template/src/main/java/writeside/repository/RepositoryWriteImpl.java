@@ -14,7 +14,6 @@ import java.util.Random;
 
 @Component
 public class RepositoryWriteImpl implements RepositoryWrite {
-    //private List<Customer> customers = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
 
@@ -50,11 +49,9 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         throw new Exception("Booking not found exception");
     }
 
-    public void createRooms() {
-        for (int i = 0; i < 50; i++) {
-            Random random = new Random(99991 * i + 13);
-            rooms.add(i, new Room(i, random.nextInt(5) + 1,null));
-        }
+    public void createRoom(Room room) {
+        //TODO: Excpetion!
+        rooms.add(room);
     }
 
     @Override
@@ -84,6 +81,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         return roomsResult;
     }
 
+    //TODO: Überarbeiten
     @Override
     public void cancelRoomBooking(Room specificRoom) throws Exception {
         Iterator<RoomBooking> roomIterator = specificRoom.getRoomBookings().iterator();
@@ -101,11 +99,6 @@ public class RepositoryWriteImpl implements RepositoryWrite {
 
         throw new Exception("Booking not found exception");
     }
-
-
-        /*public void add(Customer customer) {
-        boolean isadded = this.customers.add(customer);
-    } */
 }
 
 

@@ -1,20 +1,22 @@
 package writeside.event;
 
+import eventside.domain.Room;
 import eventside.domain.ValueObjects.RoomBooking;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomAdded extends Event {
+public class RoomCreated extends Event {
     private int roomNumber;
     private int capacity;
     private List<RoomBooking> roomBookings;
 
     //TODO: Achim ansehen
-    public RoomAdded(int roomNumber, int capacity, List<RoomBooking> roomBookings) {
+    public RoomCreated(int roomNumber, int capacity, List<RoomBooking> roomBookings) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.roomBookings = new ArrayList<>();
     }
+
 
     public int getRoomNumber() {
         return roomNumber;
