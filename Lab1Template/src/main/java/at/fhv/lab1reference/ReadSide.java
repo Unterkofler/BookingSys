@@ -9,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import readside.repository.RepositoryRead;
 
+import java.time.LocalDate;
+
 @SpringBootApplication
 @Configuration
 @ComponentScan("readside")
@@ -24,7 +26,7 @@ public class ReadSide {
     @Bean
     public CommandLineRunner run() throws Exception {
         return args -> {
-            repositoryRead.getAllBookings();
+            repositoryRead.getBookingsInPeriod(LocalDate.now(),LocalDate.now().plusDays(1));
 
         };
     }

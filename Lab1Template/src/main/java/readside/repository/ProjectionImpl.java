@@ -7,9 +7,14 @@ import eventside.domain.ValueObjects.RoomBooking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import readside.DTO.BookingDTO;
+import readside.DTO.RoomBookingDTO;
+import readside.DTO.RoomDTO;
 import writeside.event.*;
 
 import java.beans.JavaBean;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ProjectionImpl implements Projection{
@@ -35,21 +40,25 @@ public class ProjectionImpl implements Projection{
     @Override
     public void createRoom(Event event) {
         event = (RoomCreated) event;
-        Room room = new Room(((RoomCreated) event).getRoomNumber(),((RoomCreated) event).getCapacity(),((RoomCreated) event).getRoomBookings());
-        repositoryRead.addRoom(room);
+        List<LocalDate> freePeriods = LocalDate.now().datesUntil(LocalDate.now().plusYears(1)).collect(Collectors.toList());;
+
+        RoomDTO roomDTO = new RoomDTO(((RoomCreated) event).getRoomNumber(),((RoomCreated) event).getCapacity(),freePeriods);
+        //Room room = new Room(((RoomCreated) event).getRoomNumber(),((RoomCreated) event).getCapacity(),((RoomCreated) event).getRoomBookings());
+        repositoryRead.addRoom(roomDTO);
     }
 
     @Override
     public void createRoomBooking(Event event) {
         event = (RoomBookingCreated) event;
-        RoomBooking roomBooking = new RoomBooking(((RoomBookingCreated) event).getStartDate(),((RoomBookingCreated) event).getEndDate());
-        repositoryRead.addRoomBooking(roomBooking);
+        RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCreated) event).getStartDate(),((RoomBookingCreated) event).getEndDate());
+        repositoryRead.removeRoomBooking(roomBookingDTO);
+
     }
 
     @Override
     public void roomBookingCanceled(Event event) {
         event = (RoomBookingCanceled) event;
         RoomBooking roomBooking = new RoomBooking(((RoomBookingCanceled) event).getStartDate(), ((RoomBookingCanceled) event).getEndDate());
-        repositoryRead.removeRoomBooking(roomBooking);
+        repositoryRead.addRoomBooking(roomBooking);
     }
 }

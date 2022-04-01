@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import writeside.event.Event;
+import writeside.event.*;
 
 
 @Component
@@ -37,7 +37,7 @@ public class EventPublisher {
                 .uri("/event/roomCreated")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), Event.class)
+                .body(Mono.just(event), RoomCreated.class)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
@@ -50,7 +50,7 @@ public class EventPublisher {
                 .uri("/event/bookingCreated/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), Event.class)
+                .body(Mono.just(event), BookingCreated.class)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
@@ -63,7 +63,7 @@ public class EventPublisher {
                 .uri("/event/bookingCanceled")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), Event.class)
+                .body(Mono.just(event), BookingCanceled.class)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
@@ -76,7 +76,7 @@ public class EventPublisher {
                 .uri("/event/roomBookingCreated")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), Event.class)
+                .body(Mono.just(event), RoomBookingCreated.class)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
@@ -89,7 +89,7 @@ public class EventPublisher {
                 .uri("/event/roomBookingCanceled/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), Event.class)
+                .body(Mono.just(event), RoomBookingCanceled.class)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();

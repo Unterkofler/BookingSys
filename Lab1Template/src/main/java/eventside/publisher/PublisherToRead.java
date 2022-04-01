@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import writeside.event.Event;
+import writeside.event.RoomCreated;
 
 @Component
 public class PublisherToRead implements Publisher{
@@ -22,7 +23,7 @@ public class PublisherToRead implements Publisher{
                 .uri("/event/roomCreated")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(event), Event.class)
+                .body(Mono.just(event), RoomCreated.class)
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();

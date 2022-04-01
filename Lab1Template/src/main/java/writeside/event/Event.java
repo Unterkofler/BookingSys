@@ -12,7 +12,7 @@ import java.util.UUID;
 )
 
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = RoomCreated.class, name = "roomAdded"),
+        @JsonSubTypes.Type(value = RoomCreated.class, name = "roomCreated"),
         @JsonSubTypes.Type(value = BookingCreated.class, name = "bookingCreated"),
         @JsonSubTypes.Type(value = BookingCanceled.class, name = "bookingCanceled"),
         @JsonSubTypes.Type(value = RoomBookingCreated.class, name = "roomBookingCreated"),
