@@ -38,7 +38,7 @@ public class HotelServiceImpl implements HotelService {
         Event event = new BookingCreated(booking.getBookingId(),booking.getCustomer(), booking.getStartDate(),booking.getEndDate(), booking.getRoomId());
         eventPublisher.bookingCreated(event);
 
-        Event event1 = new RoomBookingCreated(startDate, endDate);
+        Event event1 = new RoomBookingCreated(startDate, endDate,room.getRoomNumber());
         eventPublisher.publishRoomBookingCreated(event1);
     }
 
@@ -55,7 +55,7 @@ public class HotelServiceImpl implements HotelService {
         System.out.println(event);
         eventPublisher.publishBookingCanceled(event);
 
-        Event event1 = new RoomBookingCanceled(booking.getStartDate(), booking.getEndDate());
+        Event event1 = new RoomBookingCanceled(booking.getStartDate(), booking.getEndDate(), booking.getRoomId());
         eventPublisher.publishRoomBookingCanceled(event1);
     }
 

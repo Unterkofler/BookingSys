@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class RepositoryReadImpl implements RepositoryRead{
@@ -59,9 +60,20 @@ public class RepositoryReadImpl implements RepositoryRead{
     }
 
     @Override
-    public void removeRoomBooking(RoomBookingDTO roomBookingDTO) {
+    public void removeDates(RoomBookingDTO roomBookingDTO) {
         //hier muss es in die RoomListe eigentlich in das Objekt hinein.
         // aktuell speichern in eigener Liste
         //roomBookings.add(roomBookingDTO);
-    }
+
+        //List<LocalDate> freePeriods = LocalDate.now().datesUntil(LocalDate.now().plusYears(1)).collect(Collectors.toList());;
+        LocalDate date = roomBookingDTO.getStartDate();
+        for (RoomDTO roomDTO: roomList) {
+            if(roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()){
+                    //versuchen mal ein Raum zu entfernen!
+
+                    //roomDTO.getFreePeriods().remove(date.datesUntil(roomBookingDTO.getEndDate()));
+
+                }
+            }
+        }
 }

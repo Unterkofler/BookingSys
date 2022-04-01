@@ -17,5 +17,5 @@ public interface RepositoryRead {
     void addRoom(RoomDTO roomDTO);
     void addRoomBooking( RoomBooking roomBooking);
     List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate);
-    void removeRoomBooking(RoomBookingDTO roomBookingDTO);
+    void removeDates(RoomBookingDTO roomBookingDTO);
 }

@@ -1,7 +1,5 @@
 package readside.repository;
 
-import eventside.domain.Booking;
-import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
 import eventside.domain.ValueObjects.RoomBooking;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import readside.DTO.RoomBookingDTO;
 import readside.DTO.RoomDTO;
 import writeside.event.*;
 
-import java.beans.JavaBean;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,8 +47,8 @@ public class ProjectionImpl implements Projection{
     @Override
     public void createRoomBooking(Event event) {
         event = (RoomBookingCreated) event;
-        RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCreated) event).getStartDate(),((RoomBookingCreated) event).getEndDate());
-        repositoryRead.removeRoomBooking(roomBookingDTO);
+        RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCreated) event).getStartDate(),((RoomBookingCreated) event).getEndDate(), ((RoomBookingCreated) event).getRoomNumber());
+        repositoryRead.removeDates(roomBookingDTO);
 
     }
 
