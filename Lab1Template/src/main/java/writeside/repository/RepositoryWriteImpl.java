@@ -10,7 +10,6 @@ import writeside.application.interfaces.RepositoryWrite;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 @Component
 public class RepositoryWriteImpl implements RepositoryWrite {
@@ -90,7 +89,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         while (roomIterator.hasNext()) {
             RoomBooking rooms = (RoomBooking) roomIterator.next();
 
-            if (rooms.getStartDate().equals(specificRoom.getRoomBookings().get(0).getStartDate()) && rooms.getEndDate().equals(specificRoom.getRoomBookings().get(0).getEndDate())) {
+            if (rooms.getStartDate().equals(specificRoom.getRoomBookings().get(i).getStartDate()) && rooms.getEndDate().equals(specificRoom.getRoomBookings().get(i).getEndDate())) {
                 roomIterator.remove();
                 return;
             }

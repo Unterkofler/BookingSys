@@ -2,10 +2,8 @@ package GUI;
 
 import eventside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import readside.repository.RepositoryRead;
 import writeside.application.interfaces.HotelService;
 
 import javax.swing.*;
@@ -17,13 +15,10 @@ import java.util.UUID;
 
 @Component
 @Service
-public final class GUI implements ActionListener {
+public final class WriteGUI implements ActionListener {
 
     @Autowired
     private HotelService hotelService;
-
-    @Autowired
-    private RepositoryRead repositoryRead;
 
     private JLabel labelCreateBooking, labelCancelBooking, labelGetBookings, labelFirstName, labelLastName, labelStartDate, labelEndDate, labelBookingId;
     private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate, textFieldCapacity, textFieldBookingId;
@@ -34,7 +29,6 @@ public final class GUI implements ActionListener {
     public void start() {
         createBooking();
         cancelBooking();
-        getBookings();
     }
 
 
@@ -154,12 +148,6 @@ public final class GUI implements ActionListener {
             });
     }
 
-    public void getBookings() {
-        labelGetBookings = new JLabel("Get Bookings");
-        labelGetBookings.setFont(labelGetBookings.getFont().deriveFont(24f));
-        labelGetBookings.setBounds(500, 10, 200, 30);
-        panel.add(labelCreateBooking);
-    }
 
 
     public String getFirstName() {

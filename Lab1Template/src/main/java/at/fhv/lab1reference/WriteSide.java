@@ -1,18 +1,16 @@
 package at.fhv.lab1reference;
 
-import GUI.GUI;
+import GUI.WriteGUI;
 import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import readside.repository.RepositoryRead;
 import writeside.application.interfaces.HotelService;
 
 import java.time.LocalDate;
@@ -21,7 +19,7 @@ import java.util.UUID;
 
 @SpringBootApplication
 @Configuration
-@ComponentScan({"writeside","GUI"})
+@ComponentScan({"writeside", "GUI"})
 public class WriteSide {
 
 
@@ -29,10 +27,11 @@ public class WriteSide {
     private HotelService hotelService;
 
     @Autowired
-    private GUI gui;
+    private WriteGUI gui;
 
     public static void main(String[] args) {
-      GUI gui = new GUI();
+      WriteGUI gui = new WriteGUI();
+
       //  gui.start();
         SpringApplicationBuilder builder = new SpringApplicationBuilder(WriteSide.class);
         builder.headless(false);

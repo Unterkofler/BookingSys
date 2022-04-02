@@ -61,9 +61,9 @@ public class RepositoryReadImpl implements RepositoryRead {
         List<BookingDTO> allBookings = new ArrayList<>();
 
         for (BookingDTO bookingDTO : bookingDTOS) {
-            if (bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)) {
+            //if (bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)) {
                 allBookings.add(bookingDTO);
-            }
+           // }
         }
 
         return allBookings;
