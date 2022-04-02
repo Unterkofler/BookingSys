@@ -31,7 +31,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         while (bookingIterator.hasNext()) {
             Booking booking = (Booking) bookingIterator.next();
 
-            if (booking.getBookingId() == bookingId) {
+            if (booking.getBookingId().getBookingId().compareTo(bookingId.getBookingId()) == 0) {
                 bookingIterator.remove();
                 return;
             }
@@ -42,7 +42,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
     @Override
     public Booking getBookingByBookingId(BookingId bookingId) throws Exception {
         for (Booking booking : bookings) {
-            if (booking.getBookingId() == bookingId) {
+            if (booking.getBookingId().getBookingId().compareTo(bookingId.getBookingId()) == 0) {
                 return booking;
             }
         }

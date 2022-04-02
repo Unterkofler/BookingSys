@@ -12,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import readside.repository.RepositoryRead;
 import writeside.application.interfaces.HotelService;
 
 import java.time.LocalDate;
@@ -29,11 +30,6 @@ public class WriteSide {
 
     @Autowired
     private GUI gui;
-
-
-
-
-
 
     public static void main(String[] args) {
       GUI gui = new GUI();
@@ -59,22 +55,12 @@ public class WriteSide {
             hotelService.createRoom(new Room(5,2,null));
             hotelService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
             hotelService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
-            hotelService.cancelBooking(bookingId1);
+           //hotelService.cancelBooking(bookingId1);
 
             System.out.println("It worked");
+            System.out.println(bookingId1);
 
             gui.start();
-            //für GUI
-            /*
-            boolean flag = true;
-            while (flag){
-                if (storageWrite.getCustomers().size() == 1){
-                    System.out.println(gui.getFirstName());
-                    flag = false;
-                }
-            }
-
-             */
 
         };
     }
