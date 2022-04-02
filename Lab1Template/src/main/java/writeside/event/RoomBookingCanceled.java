@@ -24,5 +24,7 @@ public class RoomBookingCanceled extends Event{
         return endDate;
     }
 
-
+    public int getRoomNumber() {
+        return roomNumber;
+    }
 }

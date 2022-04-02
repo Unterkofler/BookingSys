@@ -39,4 +39,5 @@ public class RoomDTO {
     public void setFreePeriods(List<LocalDate> freePeriods) {
         this.freePeriods = freePeriods;
     }
+
 }

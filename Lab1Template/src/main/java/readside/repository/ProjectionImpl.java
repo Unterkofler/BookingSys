@@ -55,7 +55,7 @@ public class ProjectionImpl implements Projection{
     @Override
     public void roomBookingCanceled(Event event) {
         event = (RoomBookingCanceled) event;
-        RoomBooking roomBooking = new RoomBooking(((RoomBookingCanceled) event).getStartDate(), ((RoomBookingCanceled) event).getEndDate());
-        repositoryRead.addRoomBooking(roomBooking);
+        RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCanceled) event).getStartDate(), ((RoomBookingCanceled) event).getEndDate(),((RoomBookingCanceled) event).getRoomNumber());
+        repositoryRead.addDates(roomBookingDTO);
     }
 }

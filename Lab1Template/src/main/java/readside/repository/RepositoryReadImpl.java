@@ -9,13 +9,11 @@ import readside.DTO.RoomBookingDTO;
 import readside.DTO.RoomDTO;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class RepositoryReadImpl implements RepositoryRead{
+public class RepositoryReadImpl implements RepositoryRead {
 
     private List<BookingDTO> bookingDTOS = new ArrayList<>();
     private List<RoomDTO> roomList = new ArrayList<>();
@@ -26,32 +24,44 @@ public class RepositoryReadImpl implements RepositoryRead{
         roomList.add(roomDTO);
     }
 
+
     @Override
-    public void addRoomBooking(RoomBooking roomBooking) {
-        //hier muss es in die RoomListe eigentlich in das Objekt hinein.
-        // aktuell speichern in eigener Liste
-        //roomBookings.add(roomBooking);
+    public void addDates(RoomBookingDTO roomBookingDTO) {
+        System.out.println(roomList.get(0).getFreePeriods().size());
+        LocalDate startDate = roomBookingDTO.getStartDate().minusDays(1);
+        LocalDate endDate = roomBookingDTO.getEndDate();
+        for (RoomDTO roomDTO : roomList) {
+
+            if (roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()) {
+                while ((startDate = startDate.plusDays(1)).isBefore(endDate.plusDays(1))) {
+                    roomDTO.getFreePeriods().add(startDate);
+                }
+            }
+            //Eventuell noch liste sortieren
+            //roomList.sort(Comparator.comparing(RoomDTO::getFreePeriods));
+            System.out.println(roomList.get(0).getFreePeriods().size());
+        }
     }
 
     //Exeption if(bookingDTO == null)
-    public void addBooking(BookingDTO bookingDTO){
+    public void addBooking(BookingDTO bookingDTO) {
         bookingDTOS.add(bookingDTO);
     }
 
     public void remove(BookingId bookingId) throws Exception {
         try {
             bookingDTOS.remove(bookingId);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("BookingId not found");
         }
 
     }
 
-    public List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate){
+    public List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate) {
         List<BookingDTO> allBookings = new ArrayList<>();
 
-        for (BookingDTO bookingDTO : bookingDTOS){
-            if(bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)){
+        for (BookingDTO bookingDTO : bookingDTOS) {
+            if (bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)) {
                 allBookings.add(bookingDTO);
             }
         }
@@ -61,19 +71,17 @@ public class RepositoryReadImpl implements RepositoryRead{
 
     @Override
     public void removeDates(RoomBookingDTO roomBookingDTO) {
-        //hier muss es in die RoomListe eigentlich in das Objekt hinein.
-        // aktuell speichern in eigener Liste
-        //roomBookings.add(roomBookingDTO);
+        //System.out.println(roomList.get(0).getFreePeriods().size());
+        LocalDate startDate = roomBookingDTO.getStartDate().minusDays(1);
+        LocalDate endDate = roomBookingDTO.getEndDate();
+        for (RoomDTO roomDTO : roomList) {
 
-        //List<LocalDate> freePeriods = LocalDate.now().datesUntil(LocalDate.now().plusYears(1)).collect(Collectors.toList());;
-        LocalDate date = roomBookingDTO.getStartDate();
-        for (RoomDTO roomDTO: roomList) {
-            if(roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()){
-                    //versuchen mal ein Raum zu entfernen!
-
-                    //roomDTO.getFreePeriods().remove(date.datesUntil(roomBookingDTO.getEndDate()));
-
+            if (roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()) {
+                while ((startDate = startDate.plusDays(1)).isBefore(endDate.plusDays(1))) {
+                    roomDTO.getFreePeriods().remove(startDate);
                 }
             }
         }
+        //System.out.println(roomList.get(0).getFreePeriods().size());
+    }
 }
