@@ -37,7 +37,6 @@ public class ReadGUI implements ActionListener {
         getFreeRooms();
 
         frame = new JFrame("Achim's Hotel");
-        //frame.setTitle("BookRoom");
         frame.setLocation(new Point(500, 300));
         frame.add(panel);
         frame.setSize(600, 600);

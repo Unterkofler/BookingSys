@@ -17,7 +17,7 @@ public interface RepositoryRead {
         void addDates(RoomBookingDTO roomBookingDTO);
         void removeDates(RoomBookingDTO roomBookingDTO);
 
-        List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate);
-        List<RoomDTO> getFreeRooms(LocalDate startDate, LocalDate endDate, int capacity);
+        List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate) throws Exception;
+        List<RoomDTO> getFreeRooms(LocalDate startDate, LocalDate endDate, int capacity) throws Exception;
 }
 

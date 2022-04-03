@@ -1,5 +1,6 @@
 package readside.repository;
 
+import writeside.domain.Room;
 import writeside.domain.ValueObjects.BookingId;
 import org.springframework.stereotype.Component;
 import readside.DTO.BookingDTO;
@@ -21,7 +22,7 @@ public class RepositoryReadImpl implements RepositoryRead {
         int oldRoomSize = roomList.size();
         roomList.add(roomDTO);
 
-        if(roomList.size() == oldRoomSize){
+        if (roomList.size() == oldRoomSize) {
             throw new Exception("Room can't be created exception");
         }
     }
@@ -32,18 +33,17 @@ public class RepositoryReadImpl implements RepositoryRead {
         int oldBookingSize = roomList.size();
         bookingList.add(bookingDTO);
 
-        if(bookingList.size() == oldBookingSize){
+        if (bookingList.size() == oldBookingSize) {
             throw new Exception("Booking can't be created exception");
         }
     }
-
 
 
     public void removeBooking(BookingId bookingId) throws Exception {
         int oldBookingSize = roomList.size();
         bookingList.remove(bookingId);
 
-        if(bookingList.size() == oldBookingSize){
+        if (bookingList.size() == oldBookingSize) {
             throw new Exception("Booking can't be canceled exception");
         }
     }
@@ -53,14 +53,13 @@ public class RepositoryReadImpl implements RepositoryRead {
     public void addDates(RoomBookingDTO roomBookingDTO) {
         LocalDate startDate = roomBookingDTO.getStartDate().minusDays(1);
         LocalDate endDate = roomBookingDTO.getEndDate();
-        for (RoomDTO roomDTO : roomList) {
 
+        for (RoomDTO roomDTO : roomList) {
             if (roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()) {
                 while ((startDate = startDate.plusDays(1)).isBefore(endDate.plusDays(1))) {
                     roomDTO.getFreePeriods().add(startDate);
                 }
             }
-            //Eventuell noch liste sortieren
             //TODO: Exception
         }
     }
@@ -81,29 +80,65 @@ public class RepositoryReadImpl implements RepositoryRead {
         //TODO: Exception
     }
 
-    //TODO: Methode noch anpassen und Exception hinzufügen
     @Override
-    public List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate) {
+    public List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate) throws Exception {
         List<BookingDTO> allBookings = new ArrayList<>();
 
         for (BookingDTO bookingDTO : bookingList) {
-            //if (bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)) {
-            allBookings.add(bookingDTO);
-            // }
+            if (bookingDTO.getStartDate().plusDays(1).isAfter(startDate) && bookingDTO.getEndDate().plusDays(1).isBefore(endDate)) {
+                allBookings.add(bookingDTO);
+            }
         }
-
+        if (allBookings.size() == 0) {
+            throw new Exception("No Bookings in Period exception");
+        }
         return allBookings;
     }
 
-    //TODO: Methode anpassen und Exception hinzufügen
     @Override
-    public List<RoomDTO> getFreeRooms(LocalDate startDate, LocalDate endDate, int capacity) {
+    public List<RoomDTO> getFreeRooms(LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
+        List<RoomDTO> roomsByCapacity = roomsByCapacity(capacity);
         List<RoomDTO> freeRooms = new ArrayList<>();
+        boolean isFree = true;
+        LocalDate startDate2 = startDate;
 
-        for(RoomDTO room : roomList){
-           freeRooms.add(room);
+        for(RoomDTO room : roomsByCapacity){
+            while(startDate.isBefore(endDate.plusDays(1)) && isFree == true){
+                if(!room.getFreePeriods().contains(startDate)){
+                    isFree = false;
+                }
+
+                startDate = startDate.plusDays(1);
+            }
+            if(isFree == true) {
+                freeRooms.add(room);
+            }
+            isFree = true;
+            startDate = startDate2;
         }
 
+        if(freeRooms.size() == 0){
+            throw new Exception("No free Rooms exception");
+        }
         return freeRooms;
     }
+
+    public List<RoomDTO> roomsByCapacity(int capacity) throws Exception {
+        List<RoomDTO> roomsResult = new ArrayList<>();
+        for (RoomDTO room : roomList) {
+            if (capacity == room.getCapacity()) {
+                roomsResult.add(room);
+            }
+        }
+
+        if (roomsResult.size() == 0) {
+            throw new Exception("No rooms found exception");
+        }
+
+        return roomsResult;
+    }
 }
+
+
+
+

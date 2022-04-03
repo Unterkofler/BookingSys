@@ -12,6 +12,6 @@ public interface HotelService {
     void createBooking(String firstName, String lastName, BookingId bookingId, LocalDate startDate, LocalDate endDate, int capacity) throws Exception;
     void cancelBooking(BookingId bookingId) throws Exception;
 
-    List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate, int capacity) throws Exception;
+    Room getAvailableRoom(LocalDate startDate, LocalDate endDate, int capacity) throws Exception;
 }
 
