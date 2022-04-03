@@ -1,4 +1,4 @@
-package eventside.domain.ValueObjects;
+package writeside.domain.ValueObjects;
 
 public class Customer {
     private String firstName;

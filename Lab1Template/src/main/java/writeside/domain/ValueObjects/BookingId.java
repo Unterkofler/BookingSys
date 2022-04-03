@@ -1,4 +1,4 @@
-package eventside.domain.ValueObjects;
+package writeside.domain.ValueObjects;
 import java.util.UUID;
 
 public class BookingId {
@@ -27,14 +27,5 @@ public class BookingId {
                 "bookingId=" + bookingId +
                 '}';
     }
-
-    /* @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookingId bookingId = (BookingId) o;
-
-        return bookingId == this.bookingId;
-    } */
 
 }

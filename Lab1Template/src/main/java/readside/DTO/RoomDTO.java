@@ -1,7 +1,5 @@
 package readside.DTO;
 
-import eventside.domain.ValueObjects.RoomBooking;
-
 import java.time.LocalDate;
 import java.util.List;
 

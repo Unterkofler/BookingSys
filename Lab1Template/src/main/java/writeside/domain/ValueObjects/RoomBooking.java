@@ -1,6 +1,4 @@
-package eventside.domain.ValueObjects;
-
-import org.springframework.cglib.core.Local;
+package writeside.domain.ValueObjects;
 
 import java.time.LocalDate;
 

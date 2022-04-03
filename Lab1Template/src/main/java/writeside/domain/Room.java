@@ -1,6 +1,6 @@
-package eventside.domain;
+package writeside.domain;
 
-import eventside.domain.ValueObjects.RoomBooking;
+import writeside.domain.ValueObjects.RoomBooking;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

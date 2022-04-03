@@ -1,7 +1,6 @@
 package writeside.event;
 
-import eventside.domain.Room;
-import eventside.domain.ValueObjects.RoomBooking;
+import writeside.domain.ValueObjects.RoomBooking;
 import java.util.ArrayList;
 import java.util.List;
 

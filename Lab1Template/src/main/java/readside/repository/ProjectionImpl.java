@@ -1,7 +1,6 @@
 package readside.repository;
 
-import eventside.domain.ValueObjects.BookingId;
-import eventside.domain.ValueObjects.RoomBooking;
+import writeside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import readside.DTO.BookingDTO;

@@ -1,8 +1,7 @@
 package writeside.event;
 
-import eventside.domain.Room;
-import eventside.domain.ValueObjects.BookingId;
-import eventside.domain.ValueObjects.Customer;
+import writeside.domain.ValueObjects.BookingId;
+import writeside.domain.ValueObjects.Customer;
 
 import java.time.LocalDate;
 

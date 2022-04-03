@@ -1,6 +1,6 @@
 package GUI;
 
-import eventside.domain.ValueObjects.BookingId;
+import writeside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;

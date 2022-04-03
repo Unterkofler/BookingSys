@@ -1,8 +1,8 @@
 package at.fhv.lab1reference;
 
 import GUI.WriteGUI;
-import eventside.domain.Room;
-import eventside.domain.ValueObjects.BookingId;
+import writeside.domain.Room;
+import writeside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
