@@ -7,7 +7,9 @@ import java.time.LocalDate;
 public class RoomBooking {
     private LocalDate startDate;
     private LocalDate endDate;
-    //private int roomNumber;
+
+    public RoomBooking() {
+    }
 
     public RoomBooking(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;

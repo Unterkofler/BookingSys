@@ -20,4 +20,21 @@ public class BookingId {
     public void setBookingId(UUID bookingId) {
         this.bookingId = bookingId;
     }
+
+    @Override
+    public String toString() {
+        return "BookingId{" +
+                "bookingId=" + bookingId +
+                '}';
+    }
+
+    /* @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookingId bookingId = (BookingId) o;
+
+        return bookingId == this.bookingId;
+    } */
+
 }

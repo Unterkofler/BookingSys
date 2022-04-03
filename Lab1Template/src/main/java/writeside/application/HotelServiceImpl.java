@@ -6,21 +6,19 @@ import eventside.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import writeside.EventPublisher;
-import writeside.application.interfaces.BookingService;
+import writeside.application.interfaces.HotelService;
 import writeside.application.interfaces.RepositoryWrite;
-import writeside.event.BookingCanceled;
-import writeside.event.BookingCreated;
-import writeside.event.Event;
+import writeside.event.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class BookingServiceImpl implements BookingService {
+public class HotelServiceImpl implements HotelService {
 
     @Autowired
-    RepositoryWrite storeRepository;
+    RepositoryWrite repositoryWrite;
 
     private EventPublisher eventPublisher = new EventPublisher();
 
@@ -34,46 +32,48 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = new Booking(bookingId, customer, startDate, endDate, room.getRoomNumber());
 
         room.createRoomBooking(startDate, endDate);
-        storeRepository.createBooking(booking);
+        repositoryWrite.createBooking(booking);
 
 
         Event event = new BookingCreated(booking.getBookingId(),booking.getCustomer(), booking.getStartDate(),booking.getEndDate(), booking.getRoomId());
         eventPublisher.bookingCreated(event);
+
+        Event event1 = new RoomBookingCreated(startDate, endDate,room.getRoomNumber());
+        eventPublisher.publishRoomBookingCreated(event1);
     }
 
     @Override
     public void cancelBooking(BookingId bookingId) throws Exception {
 
         // TODO: Gibt es hier Exception?
-        Booking booking = storeRepository.getBookingByBookingId(bookingId);
+        Booking booking = repositoryWrite.getBookingByBookingId(bookingId);
 
         removeRoomBooking(booking);
-        storeRepository.cancelBooking(bookingId);
+        repositoryWrite.cancelBooking(bookingId);
 
         Event event = new BookingCanceled(booking.getBookingId());
         System.out.println(event);
         eventPublisher.publishBookingCanceled(event);
+
+        Event event1 = new RoomBookingCanceled(booking.getStartDate(), booking.getEndDate(), booking.getRoomId());
+        eventPublisher.publishRoomBookingCanceled(event1);
     }
 
     @Override
     public List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
         List<Room> rooms = new ArrayList<>();
-        List<Room> roomsByCapacity = storeRepository.roomsByCapacity(capacity);
+        List<Room> roomsByCapacity = repositoryWrite.roomsByCapacity(capacity);
 
-        // Todo: Überarbeiten
-        for (Room room : roomsByCapacity) {
-            int i = 0;
-
-
+        // Todo: Überarbeiten der else if Abfrage
+        for (int i = 0; i < roomsByCapacity.size(); i++) {
+            Room room = roomsByCapacity.get(i);
             if (room.getRoomBookings().size() == 0) {
                 rooms.add(room);
             } else if ((!(room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
                     && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
                 rooms.add(room);
             }
-            i++;
         }
-
 
         if (rooms.size() == 0) {
             throw new Exception("No rooms found");
@@ -84,8 +84,16 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void removeRoomBooking(Booking booking) throws Exception {
-        Room room = storeRepository.getRoomByRoomNumber(booking.getRoomId());
+        Room room = repositoryWrite.getRoomByRoomNumber(booking.getRoomId());
 
-        storeRepository.cancelRoomBooking(room);
+        repositoryWrite.cancelRoomBooking(room);
+    }
+
+    @Override
+    public void createRoom(Room room) {
+
+        repositoryWrite.createRoom(room);
+        Event event = new RoomCreated(room.getRoomNumber(), room.getCapacity(), room.getRoomBookings());
+        eventPublisher.publishRoomCreated(event);
     }
 }

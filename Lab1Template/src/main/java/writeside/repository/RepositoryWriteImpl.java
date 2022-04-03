@@ -10,11 +10,9 @@ import writeside.application.interfaces.RepositoryWrite;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 @Component
 public class RepositoryWriteImpl implements RepositoryWrite {
-    //private List<Customer> customers = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
 
@@ -32,7 +30,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         while (bookingIterator.hasNext()) {
             Booking booking = (Booking) bookingIterator.next();
 
-            if (booking.getBookingId() == bookingId) {
+            if (booking.getBookingId().getBookingId().compareTo(bookingId.getBookingId()) == 0) {
                 bookingIterator.remove();
                 return;
             }
@@ -43,18 +41,16 @@ public class RepositoryWriteImpl implements RepositoryWrite {
     @Override
     public Booking getBookingByBookingId(BookingId bookingId) throws Exception {
         for (Booking booking : bookings) {
-            if (booking.getBookingId() == bookingId) {
+            if (booking.getBookingId().getBookingId().compareTo(bookingId.getBookingId()) == 0) {
                 return booking;
             }
         }
         throw new Exception("Booking not found exception");
     }
 
-    public void createRooms() {
-        for (int i = 0; i < 50; i++) {
-            Random random = new Random(99991 * i + 13);
-            rooms.add(i, new Room(i, random.nextInt(5) + 1,null));
-        }
+    public void createRoom(Room room) {
+        //TODO: Excpetion!
+        rooms.add(room);
     }
 
     @Override
@@ -84,6 +80,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         return roomsResult;
     }
 
+    //TODO: Überarbeiten
     @Override
     public void cancelRoomBooking(Room specificRoom) throws Exception {
         Iterator<RoomBooking> roomIterator = specificRoom.getRoomBookings().iterator();
@@ -92,7 +89,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         while (roomIterator.hasNext()) {
             RoomBooking rooms = (RoomBooking) roomIterator.next();
 
-            if (rooms.getStartDate().equals(specificRoom.getRoomBookings().get(0).getStartDate()) && rooms.getEndDate().equals(specificRoom.getRoomBookings().get(0).getEndDate())) {
+            if (rooms.getStartDate().equals(specificRoom.getRoomBookings().get(i).getStartDate()) && rooms.getEndDate().equals(specificRoom.getRoomBookings().get(i).getEndDate())) {
                 roomIterator.remove();
                 return;
             }
@@ -101,11 +98,6 @@ public class RepositoryWriteImpl implements RepositoryWrite {
 
         throw new Exception("Booking not found exception");
     }
-
-
-        /*public void add(Customer customer) {
-        boolean isadded = this.customers.add(customer);
-    } */
 }
 
 

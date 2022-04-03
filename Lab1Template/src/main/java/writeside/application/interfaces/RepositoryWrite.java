@@ -12,8 +12,7 @@ public interface RepositoryWrite {
     void cancelBooking(BookingId bookingId) throws Exception;
     Booking getBookingByBookingId(BookingId bookingId) throws Exception;
 
-   // void add(Customer customer);
-    void createRooms();
+    void createRoom(Room room);
     Room getRoomByRoomNumber(int roomNumber) throws Exception;
     List<Room> roomsByCapacity(int capacity) throws Exception;
 
