@@ -54,7 +54,7 @@ public class WriteSide {
             hotelService.createRoom(new Room(5,2,null));
             hotelService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
             hotelService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
-           //hotelService.cancelBooking(bookingId1);
+           hotelService.cancelBooking(bookingId1);
 
             System.out.println("It worked");
             System.out.println(bookingId1);

@@ -10,22 +10,18 @@ public class Booking {
     private Customer customer;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int roomId;
+    private int roomNumber;
 
-    public Booking(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, int roomId) {
+    public Booking(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, int roomNumber) {
         this.bookingId = bookingId;
         this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.roomId = roomId;
+        this.roomNumber = roomNumber;
     }
 
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
     public BookingId getBookingId() {

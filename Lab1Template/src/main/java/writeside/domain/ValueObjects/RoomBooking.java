@@ -6,9 +6,6 @@ public class RoomBooking {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public RoomBooking() {
-    }
-
     public RoomBooking(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -21,6 +18,4 @@ public class RoomBooking {
     public LocalDate getEndDate() {
         return endDate;
     }
-
-
 }

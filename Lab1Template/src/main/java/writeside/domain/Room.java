@@ -18,8 +18,6 @@ public class Room {
         this.roomBookings = new ArrayList<>();
     }
 
-
-
     public int getRoomNumber() { return roomNumber; }
 
     public int getCapacity() {
@@ -30,6 +28,7 @@ public class Room {
         return roomBookings;
     }
 
+    //TODO: Ansehen!
     public void createRoomBooking(LocalDate startDate, LocalDate endDate) {
         RoomBooking roomBooking = new RoomBooking(startDate, endDate);
         roomBookings.add(roomBooking);

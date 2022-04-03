@@ -16,28 +16,11 @@ public class RoomCreated extends Event {
         this.roomBookings = new ArrayList<>();
     }
 
-
     public int getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
     public int getCapacity() {
         return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public List<RoomBooking> getRoomBookings() {
-        return roomBookings;
-    }
-
-    public void setRoomBookings(List<RoomBooking> roomBookings) {
-        this.roomBookings = roomBookings;
     }
 }

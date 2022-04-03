@@ -32,31 +32,15 @@ public class BookingCreated extends Event {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public int getRoomId() {
         return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
     }
 }
