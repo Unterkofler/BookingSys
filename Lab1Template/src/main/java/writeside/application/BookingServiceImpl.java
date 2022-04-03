@@ -69,6 +69,7 @@ public class BookingServiceImpl implements HotelService {
     public Room getAvailableRoom(LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
         List<Room> roomsByCapacity = repositoryWrite.roomsByCapacity(capacity);
 
+        //TODO: Problem hier
         for (int i = 0; i < roomsByCapacity.size(); i++) {
             Room room = roomsByCapacity.get(i);
             if (room.getRoomBookings().size() == 0) {
