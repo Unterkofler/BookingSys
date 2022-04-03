@@ -1,8 +1,6 @@
 package readside.repository;
 
-import eventside.domain.Room;
 import eventside.domain.ValueObjects.BookingId;
-import eventside.domain.ValueObjects.RoomBooking;
 import org.springframework.stereotype.Component;
 import readside.DTO.BookingDTO;
 import readside.DTO.RoomBookingDTO;
@@ -10,7 +8,6 @@ import readside.DTO.RoomDTO;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class RepositoryReadImpl implements RepositoryRead {
@@ -44,6 +41,7 @@ public class RepositoryReadImpl implements RepositoryRead {
     }
 
     //Exeption if(bookingDTO == null)
+    @Override
     public void addBooking(BookingDTO bookingDTO) {
         bookingDTOS.add(bookingDTO);
     }
@@ -55,18 +53,6 @@ public class RepositoryReadImpl implements RepositoryRead {
             throw new Exception("BookingId not found");
         }
 
-    }
-
-    public List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate) {
-        List<BookingDTO> allBookings = new ArrayList<>();
-
-        for (BookingDTO bookingDTO : bookingDTOS) {
-            //if (bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)) {
-                allBookings.add(bookingDTO);
-           // }
-        }
-
-        return allBookings;
     }
 
     @Override
@@ -83,5 +69,30 @@ public class RepositoryReadImpl implements RepositoryRead {
             }
         }
         //System.out.println(roomList.get(0).getFreePeriods().size());
+    }
+
+    @Override
+    public List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate) {
+        List<BookingDTO> allBookings = new ArrayList<>();
+
+        for (BookingDTO bookingDTO : bookingDTOS) {
+            //if (bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)) {
+            allBookings.add(bookingDTO);
+            // }
+        }
+
+        return allBookings;
+    }
+
+    //TODO: Methode anpassen
+    @Override
+    public List<RoomDTO> getFreeRooms(LocalDate startDate, LocalDate endDate, int capacity) {
+        List<RoomDTO> freeRooms = new ArrayList<>();
+
+        for(RoomDTO room : roomList){
+           freeRooms.add(room);
+        }
+
+        return freeRooms;
     }
 }
