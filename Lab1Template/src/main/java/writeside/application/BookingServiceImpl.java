@@ -68,26 +68,31 @@ public class BookingServiceImpl implements HotelService {
     @Override
     public Room getAvailableRoom(LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
         List<Room> roomsByCapacity = repositoryWrite.roomsByCapacity(capacity);
+        boolean check = true;
 
-        //TODO: Problem hier
         for (int i = 0; i < roomsByCapacity.size(); i++) {
             Room room = roomsByCapacity.get(i);
             if (room.getRoomBookings().size() == 0) {
                 return room;
-            } else if ((!(room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
-                    && room.getRoomBookings().get(i).getEndDate().isAfter(startDate)))) {
-                return room;
-            } else if ((!(room.getRoomBookings().get(i).getStartDate().isAfter(startDate)
-                    && room.getRoomBookings().get(i).getEndDate().isBefore(startDate)))) {
-                return room;
-            } else if ((!(room.getRoomBookings().get(i).getEndDate().isBefore(endDate)
-                    && room.getRoomBookings().get(i).getStartDate().isAfter(endDate)))) {
-                return room;
-            } else if ((!(room.getRoomBookings().get(i).getEndDate().isBefore(endDate)
-                    && room.getRoomBookings().get(i).getStartDate().isAfter(startDate)))) {
+            } else if ((room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
+                    && room.getRoomBookings().get(i).getEndDate().isAfter(startDate))) {
+                check = false;
+            } else if (((room.getRoomBookings().get(i).getStartDate().isAfter(startDate)
+                    && room.getRoomBookings().get(i).getEndDate().isBefore(endDate)))) {
+                check = false;
+            } else if (((room.getRoomBookings().get(i).getStartDate().isBefore(endDate)
+                    && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
+                check = false;
+            } else if (((room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
+                    && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
+                check = false;
+            }
+
+            if(check != false){
                 return room;
             }
         }
+
             throw new Exception("No suitable room found exception");
     }
 }
