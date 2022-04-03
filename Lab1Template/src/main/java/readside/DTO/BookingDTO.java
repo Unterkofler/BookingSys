@@ -10,14 +10,14 @@ public class BookingDTO {
     private Customer customer;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int roomId;
+    private int roomNumber;
 
-    public BookingDTO(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, int roomId) {
+    public BookingDTO(BookingId bookingId, Customer customer, LocalDate startDate, LocalDate endDate, int roomNumber) {
         this.bookingId = bookingId;
         this.customer = customer;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.roomId = roomId;
+        this.roomNumber = roomNumber;
     }
 
     public BookingId getBookingId() {
@@ -32,31 +32,15 @@ public class BookingDTO {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 }

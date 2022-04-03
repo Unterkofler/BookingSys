@@ -12,19 +12,45 @@ import java.util.*;
 @Component
 public class RepositoryReadImpl implements RepositoryRead {
 
-    private List<BookingDTO> bookingDTOS = new ArrayList<>();
+    private List<BookingDTO> bookingList = new ArrayList<>();
     private List<RoomDTO> roomList = new ArrayList<>();
 
 
     @Override
-    public void addRoom(RoomDTO roomDTO) {
+    public void createRoom(RoomDTO roomDTO) throws Exception {
+        int oldRoomSize = roomList.size();
         roomList.add(roomDTO);
+
+        if(roomList.size() == oldRoomSize){
+            throw new Exception("Room can't be created exception");
+        }
+    }
+
+
+    @Override
+    public void createBooking(BookingDTO bookingDTO) throws Exception {
+        int oldBookingSize = roomList.size();
+        bookingList.add(bookingDTO);
+
+        if(bookingList.size() == oldBookingSize){
+            throw new Exception("Booking can't be created exception");
+        }
+    }
+
+
+
+    public void removeBooking(BookingId bookingId) throws Exception {
+        int oldBookingSize = roomList.size();
+        bookingList.remove(bookingId);
+
+        if(bookingList.size() == oldBookingSize){
+            throw new Exception("Booking can't be canceled exception");
+        }
     }
 
 
     @Override
     public void addDates(RoomBookingDTO roomBookingDTO) {
-        System.out.println(roomList.get(0).getFreePeriods().size());
         LocalDate startDate = roomBookingDTO.getStartDate().minusDays(1);
         LocalDate endDate = roomBookingDTO.getEndDate();
         for (RoomDTO roomDTO : roomList) {
@@ -35,29 +61,13 @@ public class RepositoryReadImpl implements RepositoryRead {
                 }
             }
             //Eventuell noch liste sortieren
-            //roomList.sort(Comparator.comparing(RoomDTO::getFreePeriods));
-            System.out.println(roomList.get(0).getFreePeriods().size());
+            //TODO: Exception
         }
     }
 
-    //Exeption if(bookingDTO == null)
-    @Override
-    public void addBooking(BookingDTO bookingDTO) {
-        bookingDTOS.add(bookingDTO);
-    }
-
-    public void remove(BookingId bookingId) throws Exception {
-        try {
-            bookingDTOS.remove(bookingId);
-        } catch (Exception e) {
-            throw new Exception("BookingId not found");
-        }
-
-    }
 
     @Override
     public void removeDates(RoomBookingDTO roomBookingDTO) {
-        //System.out.println(roomList.get(0).getFreePeriods().size());
         LocalDate startDate = roomBookingDTO.getStartDate().minusDays(1);
         LocalDate endDate = roomBookingDTO.getEndDate();
         for (RoomDTO roomDTO : roomList) {
@@ -68,14 +78,15 @@ public class RepositoryReadImpl implements RepositoryRead {
                 }
             }
         }
-        //System.out.println(roomList.get(0).getFreePeriods().size());
+        //TODO: Exception
     }
 
+    //TODO: Methode noch anpassen und Exception hinzufügen
     @Override
     public List<BookingDTO> getBookingsInPeriod(LocalDate startDate, LocalDate endDate) {
         List<BookingDTO> allBookings = new ArrayList<>();
 
-        for (BookingDTO bookingDTO : bookingDTOS) {
+        for (BookingDTO bookingDTO : bookingList) {
             //if (bookingDTO.getStartDate().equals(startDate) && bookingDTO.getEndDate().equals(endDate)) {
             allBookings.add(bookingDTO);
             // }
@@ -84,7 +95,7 @@ public class RepositoryReadImpl implements RepositoryRead {
         return allBookings;
     }
 
-    //TODO: Methode anpassen
+    //TODO: Methode anpassen und Exception hinzufügen
     @Override
     public List<RoomDTO> getFreeRooms(LocalDate startDate, LocalDate endDate, int capacity) {
         List<RoomDTO> freeRooms = new ArrayList<>();

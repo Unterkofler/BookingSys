@@ -13,6 +13,7 @@ public class EventRestController {
     @Autowired
     private EventRepository repository;
 
+
     @PostMapping(value = "/event", consumes = "application/json", produces = "application/json")
     public boolean addEvent(@RequestBody Event event) {
         // TODO: process event in readside.repository
@@ -20,6 +21,7 @@ public class EventRestController {
         System.out.println("Event received: " + event);
         return true;
     }
+
 
     @PostMapping(value = "/event/roomCreated", consumes = "application/json", produces = "application/json")
     public boolean roomCreated(@RequestBody RoomCreated event) {
@@ -29,6 +31,7 @@ public class EventRestController {
         return true;
     }
 
+
     @PostMapping(value = "/event/bookingCreated", consumes = "application/json", produces = "application/json")
     public boolean bookingCreated(@RequestBody BookingCreated event) {
         // TODO: process event in readside.repository
@@ -36,6 +39,7 @@ public class EventRestController {
         System.out.println("Event received: " + event);
         return true;
     }
+
 
     @PostMapping(value = "/event/bookingCanceled", consumes = "application/json", produces = "application/json")
     public boolean bookingCanceled(@RequestBody BookingCanceled event) {
@@ -45,6 +49,7 @@ public class EventRestController {
         return true;
     }
 
+
     @PostMapping(value = "/event/roomBookingCreated", consumes = "application/json", produces = "application/json")
     public boolean roomBookingCreated(@RequestBody RoomBookingCreated event) {
         // TODO: process event in readside.repository
@@ -52,6 +57,7 @@ public class EventRestController {
         System.out.println("Event received: " + event);
         return true;
     }
+
 
     @PostMapping(value = "/event/roomBookingCanceled", consumes = "application/json", produces = "application/json")
     public boolean roomBookingCanceled(@RequestBody RoomBookingCanceled event) {

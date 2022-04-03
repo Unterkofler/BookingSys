@@ -99,7 +99,7 @@ public class ReadGUI implements ActionListener {
                         List<BookingDTO> list = repositoryRead.getBookingsInPeriod(getStartDate(), getEndDate());
                         for (BookingDTO booking: list) {
                             model.addRow(new Object[]{booking.getBookingId().getBookingId(), booking.getCustomer().getFirstName(),
-                                    booking.getCustomer().getLastName(), booking.getStartDate(),booking.getEndDate(),booking.getRoomId()});
+                                    booking.getCustomer().getLastName(), booking.getStartDate(),booking.getEndDate(),booking.getRoomNumber()});
                         }
 
                         JScrollPane scrollPane = new JScrollPane(table);

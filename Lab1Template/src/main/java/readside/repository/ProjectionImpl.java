@@ -18,30 +18,33 @@ public class ProjectionImpl implements Projection{
     RepositoryRead repositoryRead;
 
     @Override
-    public void createBooking(Event event) {
-        event = (BookingCreated) event;
-        BookingDTO bookingDTO = new BookingDTO(((BookingCreated) event).getBookingId(),
-                ((BookingCreated) event).getCustomer(),((BookingCreated) event).getStartDate(),
-                ((BookingCreated) event).getEndDate(),((BookingCreated) event).getRoomId());
-        repositoryRead.addBooking(bookingDTO);
-    }
-
-    @Override
-    public void cancelBooking(Event event) throws Exception {
-        event = (BookingCanceled) event;
-        BookingId bookingId = ((BookingCanceled) event).getBookingId();
-        repositoryRead.remove(bookingId);
-    }
-
-    @Override
-    public void createRoom(Event event) {
+    public void createRoom(Event event) throws Exception {
         event = (RoomCreated) event;
         List<LocalDate> freePeriods = LocalDate.now().datesUntil(LocalDate.now().plusYears(1)).collect(Collectors.toList());;
 
         RoomDTO roomDTO = new RoomDTO(((RoomCreated) event).getRoomNumber(),((RoomCreated) event).getCapacity(),freePeriods);
         //Room room = new Room(((RoomCreated) event).getRoomNumber(),((RoomCreated) event).getCapacity(),((RoomCreated) event).getRoomBookings());
-        repositoryRead.addRoom(roomDTO);
+        repositoryRead.createRoom(roomDTO);
     }
+
+
+    @Override
+    public void createBooking(Event event) throws Exception {
+        event = (BookingCreated) event;
+        BookingDTO bookingDTO = new BookingDTO(((BookingCreated) event).getBookingId(),
+                ((BookingCreated) event).getCustomer(),((BookingCreated) event).getStartDate(),
+                ((BookingCreated) event).getEndDate(),((BookingCreated) event).getRoomId());
+        repositoryRead.createBooking(bookingDTO);
+    }
+
+
+    @Override
+    public void cancelBooking(Event event) throws Exception {
+        event = (BookingCanceled) event;
+        BookingId bookingId = ((BookingCanceled) event).getBookingId();
+        repositoryRead.removeBooking(bookingId);
+    }
+
 
     @Override
     public void createRoomBooking(Event event) {
@@ -50,6 +53,7 @@ public class ProjectionImpl implements Projection{
         repositoryRead.removeDates(roomBookingDTO);
 
     }
+
 
     @Override
     public void roomBookingCanceled(Event event) {
