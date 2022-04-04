@@ -20,8 +20,8 @@ public final class WriteGUI implements ActionListener {
     @Autowired
     private HotelService hotelService;
 
-    private JLabel labelCreateBooking, labelCancelBooking, labelGetBookings, labelFirstName, labelLastName, labelStartDate, labelEndDate, labelBookingId;
-    private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate, textFieldCapacity, textFieldBookingId;
+    private JLabel labelCreateBooking, labelCancelBooking, labelFirstName, labelLastName, labelStartDate, labelEndDate,labelRoomNumber, labelBookingId;
+    private JTextField textFieldFirstName, textFieldLastName, textFieldStartDate, textFieldEndDate, textFieldCapacity, textFieldRoomNumber, textFieldBookingId;
     private JButton buttonConfirm, cancelButton;
     private JPanel panel;
     private JFrame frame;
@@ -62,10 +62,13 @@ public final class WriteGUI implements ActionListener {
         labelEndDate.setBounds(100, 260, 70, 20);
         panel.add(labelEndDate);
 
+        labelRoomNumber = new JLabel("RoomNumber");
+        labelRoomNumber.setBounds(100,310,70,20);
+        panel.add(labelRoomNumber);
 
         buttonConfirm = new JButton("Book Room");
         buttonConfirm.setFont(new Font("Dialog", Font.PLAIN, 12));
-        buttonConfirm.setBounds(100, 330, 100, 28);
+        buttonConfirm.setBounds(100, 380, 100, 28);
         buttonConfirm.setForeground(Color.WHITE);
         buttonConfirm.setBackground(Color.BLACK);
         buttonConfirm.addActionListener(this);
@@ -76,18 +79,21 @@ public final class WriteGUI implements ActionListener {
         textFieldEndDate = new JTextField();
         textFieldStartDate = new JTextField();
         textFieldCapacity = new JTextField();
+        textFieldRoomNumber = new JTextField();
 
         textFieldFirstName.setBounds(100, 80, 200, 28);
         textFieldLastName.setBounds(100, 130, 200, 28);
         textFieldStartDate.setBounds(100, 180, 200, 28);
         textFieldEndDate.setBounds(100, 230, 200, 28);
         textFieldCapacity.setBounds(100, 280, 200, 28);
+        textFieldRoomNumber.setBounds(100,330,200,28);
 
         panel.add(textFieldFirstName);
         panel.add(textFieldLastName);
         panel.add(textFieldEndDate);
         panel.add(textFieldStartDate);
         panel.add(textFieldCapacity);
+        panel.add(textFieldRoomNumber);
 
         frame = new JFrame("Achim's Hotel");
         //frame.setTitle("BookRoom");
@@ -99,7 +105,14 @@ public final class WriteGUI implements ActionListener {
 
         buttonConfirm.addActionListener(e-> {
                 try {
-                    hotelService.createBooking(getFirstName(), getLastName(), new BookingId(UUID.randomUUID()), getStartDate(), getEndDate(), getCapacity());
+                    hotelService.createBooking(getFirstName(), getLastName(), new BookingId(UUID.randomUUID()), getStartDate(), getEndDate(), getCapacity(), getRoomNumber());
+                    JOptionPane.showMessageDialog(null, "Booking created.");
+                    textFieldFirstName.setText("");
+                    textFieldLastName.setText("");
+                    textFieldStartDate.setText("");
+                    textFieldEndDate.setText("");
+                    textFieldCapacity.setText("");
+                    textFieldRoomNumber.setText("");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Booking can't be created.");
                     textFieldFirstName.setText("");
@@ -107,6 +120,7 @@ public final class WriteGUI implements ActionListener {
                     textFieldStartDate.setText("");
                     textFieldEndDate.setText("");
                     textFieldCapacity.setText("");
+                    textFieldRoomNumber.setText("");
 
                     ex.printStackTrace();
                 }
@@ -140,6 +154,8 @@ public final class WriteGUI implements ActionListener {
         cancelButton.addActionListener(e -> {
                 try {
                     hotelService.cancelBooking(getBookingId());
+                    JOptionPane.showMessageDialog(null, "Booking canceled.");
+                    textFieldBookingId.setText("");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Booking can't be canceled.");
                     textFieldBookingId.setText("");
@@ -168,6 +184,10 @@ public final class WriteGUI implements ActionListener {
 
     public int getCapacity() {
         return Integer.parseInt(textFieldCapacity.getText());
+    }
+
+    public int getRoomNumber() {
+        return Integer.parseInt(textFieldRoomNumber.getText());
     }
 
     public BookingId getBookingId() {

@@ -33,19 +33,22 @@ public class BookingServiceImpl implements HotelService {
 
 
     @Override
-    public void createBooking(String firstName, String lastName, BookingId bookingId, LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
+    public void createBooking(String firstName, String lastName, BookingId bookingId, LocalDate startDate, LocalDate endDate, int capacity, int roomNumber) throws Exception {
         Customer customer = new Customer(firstName, lastName);
-        Room room = getAvailableRoom(startDate, endDate, capacity);
-        Booking booking = new Booking(bookingId, customer, startDate, endDate, room.getRoomNumber());
 
-        room.createRoomBooking(startDate, endDate);
-        repositoryWrite.createBooking(booking);
+        if(checkIsRoomAvailable(roomNumber, startDate, endDate) == true){
+            Booking booking = new Booking(bookingId, customer, startDate, endDate, roomNumber);
+            Room room = repositoryWrite.getRoomByRoomNumber(booking.getRoomNumber());
 
-        Event bookingCreated = new BookingCreated(booking.getBookingId(), booking.getCustomer(), booking.getStartDate(), booking.getEndDate(), booking.getRoomNumber());
-        eventPublisher.bookingCreated(bookingCreated);
+            room.createRoomBooking(startDate, endDate);
+            repositoryWrite.createBooking(booking);
 
-        Event roomBookingCreated = new RoomBookingCreated(startDate, endDate, room.getRoomNumber());
-        eventPublisher.publishRoomBookingCreated(roomBookingCreated);
+            Event bookingCreated = new BookingCreated(booking.getBookingId(), booking.getCustomer(), booking.getStartDate(), booking.getEndDate(), booking.getRoomNumber());
+            eventPublisher.bookingCreated(bookingCreated);
+
+            Event roomBookingCreated = new RoomBookingCreated(startDate, endDate, room.getRoomNumber());
+            eventPublisher.publishRoomBookingCreated(roomBookingCreated);
+        }
     }
 
 
@@ -64,36 +67,28 @@ public class BookingServiceImpl implements HotelService {
         eventPublisher.publishRoomBookingCanceled(roomBookingCanceled);
     }
 
+    private boolean checkIsRoomAvailable(int roomNumber, LocalDate startDate, LocalDate endDate) throws Exception {
+        Room room = repositoryWrite.getRoomByRoomNumber(roomNumber);
 
-    @Override
-    public Room getAvailableRoom(LocalDate startDate, LocalDate endDate, int capacity) throws Exception {
-        List<Room> roomsByCapacity = repositoryWrite.roomsByCapacity(capacity);
-        boolean check = true;
-
-        for (int i = 0; i < roomsByCapacity.size(); i++) {
-            Room room = roomsByCapacity.get(i);
-            if (room.getRoomBookings().size() == 0) {
-                return room;
-            } else if ((room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
-                    && room.getRoomBookings().get(i).getEndDate().isAfter(startDate))) {
-                check = false;
-            } else if (((room.getRoomBookings().get(i).getStartDate().isAfter(startDate)
-                    && room.getRoomBookings().get(i).getEndDate().isBefore(endDate)))) {
-                check = false;
-            } else if (((room.getRoomBookings().get(i).getStartDate().isBefore(endDate)
-                    && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
-                check = false;
-            } else if (((room.getRoomBookings().get(i).getStartDate().isBefore(startDate)
-                    && room.getRoomBookings().get(i).getEndDate().isAfter(endDate)))) {
-                check = false;
+        for(RoomBooking roomBooking : room.getRoomBookings()) {
+            if(roomBooking.getStartDate().isBefore(startDate) && roomBooking.getEndDate().isAfter(startDate)) {
+                System.out.println("An other Booking is in this Time period");
+                return false;
             }
-
-            if(check != false){
-                return room;
+            if(roomBooking.getStartDate().isAfter(startDate) && roomBooking.getEndDate().isBefore(endDate)) {
+                System.out.println("An other Booking is in this Time period");
+                return false;
+            }
+            if(roomBooking.getStartDate().isBefore(endDate) && roomBooking.getEndDate().isAfter(endDate)) {
+                System.out.println("An other Booking is in this Time period");
+                return false;
+            }
+            if(roomBooking.getStartDate().isBefore(startDate) && roomBooking.getEndDate().isAfter(endDate)) {
+                System.out.println("An other Booking is in this Time period");
+                return false;
             }
         }
-
-            throw new Exception("No suitable room found exception");
+            return true;
     }
 }
 
