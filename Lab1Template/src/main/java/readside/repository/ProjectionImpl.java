@@ -47,7 +47,7 @@ public class ProjectionImpl implements Projection{
 
 
     @Override
-    public void createRoomBooking(Event event) {
+    public void createRoomBooking(Event event) throws Exception {
         event = (RoomBookingCreated) event;
         RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCreated) event).getStartDate(),((RoomBookingCreated) event).getEndDate(), ((RoomBookingCreated) event).getRoomNumber());
         repositoryRead.removeDates(roomBookingDTO);
@@ -56,7 +56,7 @@ public class ProjectionImpl implements Projection{
 
 
     @Override
-    public void roomBookingCanceled(Event event) {
+    public void roomBookingCanceled(Event event) throws Exception {
         event = (RoomBookingCanceled) event;
         RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCanceled) event).getStartDate(), ((RoomBookingCanceled) event).getEndDate(),((RoomBookingCanceled) event).getRoomNumber());
         repositoryRead.addDates(roomBookingDTO);

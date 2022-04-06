@@ -50,34 +50,41 @@ public class RepositoryReadImpl implements RepositoryRead {
 
 
     @Override
-    public void addDates(RoomBookingDTO roomBookingDTO) {
+    public void addDates(RoomBookingDTO roomBookingDTO) throws Exception {
         LocalDate startDate = roomBookingDTO.getStartDate().minusDays(1);
         LocalDate endDate = roomBookingDTO.getEndDate();
 
-        for (RoomDTO roomDTO : roomList) {
-            if (roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()) {
-                while ((startDate = startDate.plusDays(1)).isBefore(endDate.plusDays(1))) {
-                    roomDTO.getFreePeriods().add(startDate);
+        try {
+            for (RoomDTO roomDTO : roomList) {
+                if (roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()) {
+                    while ((startDate = startDate.plusDays(1)).isBefore(endDate.plusDays(1))) {
+                        roomDTO.getFreePeriods().add(startDate);
+                    }
                 }
+
             }
-            //TODO: Exception
+        } catch (Exception e) {
+            throw new Exception("No rooms in roomList");
         }
     }
 
 
     @Override
-    public void removeDates(RoomBookingDTO roomBookingDTO) {
+    public void removeDates(RoomBookingDTO roomBookingDTO) throws Exception {
         LocalDate startDate = roomBookingDTO.getStartDate().minusDays(1);
         LocalDate endDate = roomBookingDTO.getEndDate();
-        for (RoomDTO roomDTO : roomList) {
 
-            if (roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()) {
-                while ((startDate = startDate.plusDays(1)).isBefore(endDate.plusDays(1))) {
-                    roomDTO.getFreePeriods().remove(startDate);
+        try {
+            for (RoomDTO roomDTO : roomList) {
+                if (roomDTO.getRoomNumber() == roomBookingDTO.getRoomNumber()) {
+                    while ((startDate = startDate.plusDays(1)).isBefore(endDate.plusDays(1))) {
+                        roomDTO.getFreePeriods().remove(startDate);
+                    }
                 }
             }
+        } catch (Exception e) {
+            throw new Exception("No rooms in roomList");
         }
-        //TODO: Exception
     }
 
     @Override
@@ -102,22 +109,22 @@ public class RepositoryReadImpl implements RepositoryRead {
         boolean isFree = true;
         LocalDate startDate2 = startDate;
 
-        for(RoomDTO room : roomsByCapacity){
-            while(startDate.isBefore(endDate.plusDays(1)) && isFree == true){
-                if(!room.getFreePeriods().contains(startDate)){
+        for (RoomDTO room : roomsByCapacity) {
+            while (startDate.isBefore(endDate.plusDays(1)) && isFree == true) {
+                if (!room.getFreePeriods().contains(startDate)) {
                     isFree = false;
                 }
 
                 startDate = startDate.plusDays(1);
             }
-            if(isFree == true) {
+            if (isFree == true) {
                 freeRooms.add(room);
             }
             isFree = true;
             startDate = startDate2;
         }
 
-        if(freeRooms.size() == 0){
+        if (freeRooms.size() == 0) {
             throw new Exception("No free Rooms exception");
         }
         return freeRooms;

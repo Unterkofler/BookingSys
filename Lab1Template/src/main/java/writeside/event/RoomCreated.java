@@ -9,11 +9,10 @@ public class RoomCreated extends Event {
     private int capacity;
     private List<RoomBooking> roomBookings;
 
-    //TODO: Achim ansehen
     public RoomCreated(int roomNumber, int capacity, List<RoomBooking> roomBookings) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
-        this.roomBookings = new ArrayList<>();
+        this.roomBookings = roomBookings;
     }
 
     public int getRoomNumber() {

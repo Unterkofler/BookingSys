@@ -183,7 +183,7 @@ public class ReadGUI implements ActionListener {
                         panel.add(scrollPane);
 
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "No free Rooms found.");
+                        JOptionPane.showMessageDialog(null, "No free rooms found.");
                         textFieldRoomStartDate.setText("");
                         textFieldRoomEndDate.setText("");
                         textFieldCapacity.setText("");

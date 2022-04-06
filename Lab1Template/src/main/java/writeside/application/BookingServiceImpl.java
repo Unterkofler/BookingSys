@@ -71,6 +71,7 @@ public class BookingServiceImpl implements HotelService {
         Room room = repositoryWrite.getRoomByRoomNumber(roomNumber);
 
         for(RoomBooking roomBooking : room.getRoomBookings()) {
+
             if(roomBooking.getStartDate().isBefore(startDate) && roomBooking.getEndDate().isAfter(startDate)) {
                 System.out.println("An other Booking is in this Time period");
                 return false;

@@ -40,7 +40,7 @@ public class ReadRESTController {
 
 
     @PostMapping(value = "/event/roomBookingCreated", consumes = "application/json", produces = "application/json")
-    public boolean roomBookingCreated(@RequestBody RoomBookingCreated event) {
+    public boolean roomBookingCreated(@RequestBody RoomBookingCreated event) throws Exception {
         projection.createRoomBooking(event);
         System.out.println("Event received: " + event);
         return true;
@@ -48,7 +48,7 @@ public class ReadRESTController {
 
 
     @PostMapping(value = "/event/roomBookingCanceled", consumes = "application/json", produces = "application/json")
-    public boolean roomBookingCanceled(@RequestBody RoomBookingCanceled event) {
+    public boolean roomBookingCanceled(@RequestBody RoomBookingCanceled event) throws Exception {
         projection.roomBookingCanceled(event);
         System.out.println("Event received: " + event);
         return true;
