@@ -1,7 +1,5 @@
 package readside.DTO;
 
-import eventside.domain.ValueObjects.RoomBooking;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,24 +18,11 @@ public class RoomDTO {
         return roomNumber;
     }
 
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
     public int getCapacity() {
         return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public List<LocalDate> getFreePeriods() {
         return freePeriods;
     }
-
-    public void setFreePeriods(List<LocalDate> freePeriods) {
-        this.freePeriods = freePeriods;
-    }
-
 }

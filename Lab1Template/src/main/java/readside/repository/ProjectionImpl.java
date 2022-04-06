@@ -1,7 +1,6 @@
 package readside.repository;
 
-import eventside.domain.ValueObjects.BookingId;
-import eventside.domain.ValueObjects.RoomBooking;
+import writeside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import readside.DTO.BookingDTO;
@@ -19,41 +18,45 @@ public class ProjectionImpl implements Projection{
     RepositoryRead repositoryRead;
 
     @Override
-    public void createBooking(Event event) {
-        event = (BookingCreated) event;
-        BookingDTO bookingDTO = new BookingDTO(((BookingCreated) event).getBookingId(),
-                ((BookingCreated) event).getCustomer(),((BookingCreated) event).getStartDate(),
-                ((BookingCreated) event).getEndDate(),((BookingCreated) event).getRoomId());
-        repositoryRead.addBooking(bookingDTO);
-    }
-
-    @Override
-    public void cancelBooking(Event event) throws Exception {
-        event = (BookingCanceled) event;
-        BookingId bookingId = ((BookingCanceled) event).getBookingId();
-        repositoryRead.remove(bookingId);
-    }
-
-    @Override
-    public void createRoom(Event event) {
+    public void createRoom(Event event) throws Exception {
         event = (RoomCreated) event;
         List<LocalDate> freePeriods = LocalDate.now().datesUntil(LocalDate.now().plusYears(1)).collect(Collectors.toList());;
 
         RoomDTO roomDTO = new RoomDTO(((RoomCreated) event).getRoomNumber(),((RoomCreated) event).getCapacity(),freePeriods);
         //Room room = new Room(((RoomCreated) event).getRoomNumber(),((RoomCreated) event).getCapacity(),((RoomCreated) event).getRoomBookings());
-        repositoryRead.addRoom(roomDTO);
+        repositoryRead.createRoom(roomDTO);
     }
 
+
     @Override
-    public void createRoomBooking(Event event) {
+    public void createBooking(Event event) throws Exception {
+        event = (BookingCreated) event;
+        BookingDTO bookingDTO = new BookingDTO(((BookingCreated) event).getBookingId(),
+                ((BookingCreated) event).getCustomer(),((BookingCreated) event).getStartDate(),
+                ((BookingCreated) event).getEndDate(),((BookingCreated) event).getRoomId());
+        repositoryRead.createBooking(bookingDTO);
+    }
+
+
+    @Override
+    public void cancelBooking(Event event) throws Exception {
+        event = (BookingCanceled) event;
+        BookingId bookingId = ((BookingCanceled) event).getBookingId();
+        repositoryRead.removeBooking(bookingId);
+    }
+
+
+    @Override
+    public void createRoomBooking(Event event) throws Exception {
         event = (RoomBookingCreated) event;
         RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCreated) event).getStartDate(),((RoomBookingCreated) event).getEndDate(), ((RoomBookingCreated) event).getRoomNumber());
         repositoryRead.removeDates(roomBookingDTO);
 
     }
 
+
     @Override
-    public void roomBookingCanceled(Event event) {
+    public void roomBookingCanceled(Event event) throws Exception {
         event = (RoomBookingCanceled) event;
         RoomBookingDTO roomBookingDTO = new RoomBookingDTO(((RoomBookingCanceled) event).getStartDate(), ((RoomBookingCanceled) event).getEndDate(),((RoomBookingCanceled) event).getRoomNumber());
         repositoryRead.addDates(roomBookingDTO);

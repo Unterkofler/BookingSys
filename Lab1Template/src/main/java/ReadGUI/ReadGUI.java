@@ -22,7 +22,7 @@ public class ReadGUI implements ActionListener {
 
     private JLabel labelGetBookings,labelGetFreeRooms, labelStartDate, labelEndDate, labelRoomStartDate, labelRoomEndDate, labelCapacity;
     private JTextField textFieldStartDate, textFieldEndDate, textFieldRoomStartDate, textFieldRoomEndDate, textFieldCapacity;
-    private JButton buttonConfirm, getRooms;
+    private JButton getBookings, getRooms;
     private JPanel panel;
     private JFrame frame;
 
@@ -37,7 +37,6 @@ public class ReadGUI implements ActionListener {
         getFreeRooms();
 
         frame = new JFrame("Achim's Hotel");
-        //frame.setTitle("BookRoom");
         frame.setLocation(new Point(500, 300));
         frame.add(panel);
         frame.setSize(600, 600);
@@ -70,13 +69,13 @@ public class ReadGUI implements ActionListener {
         panel.add(textFieldEndDate);
         panel.add(textFieldStartDate);
 
-        buttonConfirm = new JButton("Get Bookings");
-        buttonConfirm.setFont(new Font("Dialog", Font.PLAIN, 12));
-        buttonConfirm.setBounds(100, 180, 100, 28);
-        buttonConfirm.setForeground(Color.WHITE);
-        buttonConfirm.setBackground(Color.BLACK);
-        buttonConfirm.addActionListener(this);
-        panel.add(buttonConfirm);
+        getBookings = new JButton("Get Bookings");
+        getBookings.setFont(new Font("Dialog", Font.PLAIN, 12));
+        getBookings.setBounds(100, 180, 150, 28);
+        getBookings.setForeground(Color.WHITE);
+        getBookings.setBackground(Color.BLACK);
+        getBookings.addActionListener(this);
+        panel.add(getBookings);
 
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("BookingId");
@@ -87,7 +86,7 @@ public class ReadGUI implements ActionListener {
         model.addColumn("Room Number");
         JTable table = new JTable(model);
 
-        buttonConfirm.addActionListener(e-> {
+        getBookings.addActionListener(e-> {
 
             int rows = model.getRowCount();
             for(int i = rows - 1; i >=0; i--)
@@ -99,7 +98,7 @@ public class ReadGUI implements ActionListener {
                         List<BookingDTO> list = repositoryRead.getBookingsInPeriod(getStartDate(), getEndDate());
                         for (BookingDTO booking: list) {
                             model.addRow(new Object[]{booking.getBookingId().getBookingId(), booking.getCustomer().getFirstName(),
-                                    booking.getCustomer().getLastName(), booking.getStartDate(),booking.getEndDate(),booking.getRoomId()});
+                                    booking.getCustomer().getLastName(), booking.getStartDate(),booking.getEndDate(),booking.getRoomNumber()});
                         }
 
                         JScrollPane scrollPane = new JScrollPane(table);
@@ -115,8 +114,6 @@ public class ReadGUI implements ActionListener {
                     }
                 }
         );
-
-
     }
 
     public void getFreeRooms() {
@@ -126,11 +123,11 @@ public class ReadGUI implements ActionListener {
         panel.add(labelGetFreeRooms);
 
         labelRoomStartDate = new JLabel("Start Date - Format: 2022-01-01");
-        labelRoomStartDate.setBounds(800, 60, 70, 20);
+        labelRoomStartDate.setBounds(800, 60, 200, 20);
         panel.add(labelRoomStartDate);
 
         labelRoomEndDate = new JLabel("End Date - Format: 2022-01-01");
-        labelRoomEndDate.setBounds(800, 110, 70, 20);
+        labelRoomEndDate.setBounds(800, 110, 200, 20);
         panel.add(labelRoomEndDate);
 
         labelCapacity = new JLabel("Capacity");
@@ -184,7 +181,7 @@ public class ReadGUI implements ActionListener {
                         panel.add(scrollPane);
 
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "No free Rooms found.");
+                        JOptionPane.showMessageDialog(null, "No free rooms found.");
                         textFieldRoomStartDate.setText("");
                         textFieldRoomEndDate.setText("");
                         textFieldCapacity.setText("");

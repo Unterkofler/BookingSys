@@ -8,9 +8,6 @@ public class RoomBookingDTO {
     private LocalDate endDate;
     int roomNumber;
 
-    public RoomBookingDTO() {
-    }
-
     public RoomBookingDTO(LocalDate startDate, LocalDate endDate, int roomNumber) {
         this.startDate = startDate;
         this.endDate = endDate;

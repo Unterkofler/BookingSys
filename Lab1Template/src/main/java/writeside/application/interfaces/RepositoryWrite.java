@@ -1,21 +1,21 @@
 package writeside.application.interfaces;
 
-import eventside.domain.Booking;
-import eventside.domain.Room;
-import eventside.domain.ValueObjects.BookingId;
+import writeside.domain.Booking;
+import writeside.domain.Room;
+import writeside.domain.ValueObjects.BookingId;
 
 import java.util.List;
 
 
 public interface RepositoryWrite {
-    void createBooking(Booking booking);
+    void createRoom(Room room) throws Exception;
+
+    void createBooking(Booking booking) throws Exception;
     void cancelBooking(BookingId bookingId) throws Exception;
     Booking getBookingByBookingId(BookingId bookingId) throws Exception;
 
-    void createRoom(Room room);
     Room getRoomByRoomNumber(int roomNumber) throws Exception;
     List<Room> roomsByCapacity(int capacity) throws Exception;
-
     void cancelRoomBooking(Room specificRoom) throws Exception;
-
 }
+

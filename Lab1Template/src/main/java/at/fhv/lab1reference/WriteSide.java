@@ -1,8 +1,8 @@
 package at.fhv.lab1reference;
 
-import GUI.WriteGUI;
-import eventside.domain.Room;
-import eventside.domain.ValueObjects.BookingId;
+import WriteGUI.WriteGUI;
+import writeside.domain.Room;
+import writeside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @SpringBootApplication
 @Configuration
-@ComponentScan({"writeside", "GUI"})
+@ComponentScan({"writeside", "WriteGUI"})
 public class WriteSide {
 
 
@@ -52,8 +52,8 @@ public class WriteSide {
             hotelService.createRoom(new Room(3,2,null));
             hotelService.createRoom(new Room(4,2,null));
             hotelService.createRoom(new Room(5,2,null));
-            hotelService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2);
-            hotelService.createBooking("Achim","Unterkofler",bookingId2,LocalDate.now(),LocalDate.now().plusDays(3), 2);
+            hotelService.createBooking("Achim","Unterkofler", bookingId1,LocalDate.now(),LocalDate.now().plusDays(3), 2,1);
+            hotelService.createBooking("Tobias","Kurz",bookingId2,LocalDate.now().plusDays(1),LocalDate.now().plusDays(3), 2,2);
            //hotelService.cancelBooking(bookingId1);
 
             System.out.println("It worked");

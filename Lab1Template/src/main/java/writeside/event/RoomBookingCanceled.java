@@ -7,9 +7,6 @@ public class RoomBookingCanceled extends Event{
     private LocalDate endDate;
     int roomNumber;
 
-    public RoomBookingCanceled() {
-    }
-
     public RoomBookingCanceled(LocalDate startDate, LocalDate endDate, int roomNumber) {
         this.startDate = startDate;
         this.endDate = endDate;

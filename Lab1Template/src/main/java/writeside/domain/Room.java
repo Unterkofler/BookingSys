@@ -1,6 +1,6 @@
-package eventside.domain;
+package writeside.domain;
 
-import eventside.domain.ValueObjects.RoomBooking;
+import writeside.domain.ValueObjects.RoomBooking;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,14 +11,11 @@ public class Room {
     private int capacity;
     private List<RoomBooking> roomBookings;
 
-    //TODO: Achim ansehen
     public Room(int roomNumber, int capacity, List<RoomBooking> roomBookings) {
         this.roomNumber = roomNumber;
         this.capacity = capacity;
         this.roomBookings = new ArrayList<>();
     }
-
-
 
     public int getRoomNumber() { return roomNumber; }
 

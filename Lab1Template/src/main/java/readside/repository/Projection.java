@@ -3,10 +3,11 @@ package readside.repository;
 import writeside.event.Event;
 
 public interface Projection {
-    void createBooking(Event event);
+    void createRoom(Event event) throws Exception;
+
+    void createBooking(Event event) throws Exception;
     void cancelBooking(Event event) throws Exception;
 
-    void createRoom(Event event);
-    void createRoomBooking(Event event);
-    void roomBookingCanceled(Event event);
+    void createRoomBooking(Event event) throws Exception;
+    void roomBookingCanceled(Event event) throws Exception;
 }

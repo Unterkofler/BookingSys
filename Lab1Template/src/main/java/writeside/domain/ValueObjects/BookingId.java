@@ -1,8 +1,7 @@
-package eventside.domain.ValueObjects;
+package writeside.domain.ValueObjects;
 import java.util.UUID;
 
 public class BookingId {
-
     private UUID bookingId;
 
     public BookingId(){
@@ -12,13 +11,8 @@ public class BookingId {
         this.bookingId = bookingId;
     }
 
-
     public UUID getBookingId() {
         return bookingId;
-    }
-
-    public void setBookingId(UUID bookingId) {
-        this.bookingId = bookingId;
     }
 
     @Override
@@ -27,14 +21,4 @@ public class BookingId {
                 "bookingId=" + bookingId +
                 '}';
     }
-
-    /* @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookingId bookingId = (BookingId) o;
-
-        return bookingId == this.bookingId;
-    } */
-
 }

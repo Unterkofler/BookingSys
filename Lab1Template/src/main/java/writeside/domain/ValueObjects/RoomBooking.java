@@ -1,15 +1,10 @@
-package eventside.domain.ValueObjects;
-
-import org.springframework.cglib.core.Local;
+package writeside.domain.ValueObjects;
 
 import java.time.LocalDate;
 
 public class RoomBooking {
     private LocalDate startDate;
     private LocalDate endDate;
-
-    public RoomBooking() {
-    }
 
     public RoomBooking(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
@@ -23,6 +18,4 @@ public class RoomBooking {
     public LocalDate getEndDate() {
         return endDate;
     }
-
-
 }

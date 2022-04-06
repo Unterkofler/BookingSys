@@ -1,9 +1,9 @@
 package writeside.repository;
 
-import eventside.domain.Booking;
-import eventside.domain.Room;
-import eventside.domain.ValueObjects.BookingId;
-import eventside.domain.ValueObjects.RoomBooking;
+import writeside.domain.Booking;
+import writeside.domain.Room;
+import writeside.domain.ValueObjects.BookingId;
+import writeside.domain.ValueObjects.RoomBooking;
 import org.springframework.stereotype.Component;
 import writeside.application.interfaces.RepositoryWrite;
 
@@ -16,12 +16,26 @@ public class RepositoryWriteImpl implements RepositoryWrite {
     private List<Booking> bookings = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
 
+    public void createRoom(Room room) throws Exception {
+        int oldRoomSize = rooms.size();
+        rooms.add(room);
+
+        if(rooms.size() == oldRoomSize){
+            throw new Exception("Room can't be created exception");
+        }
+    }
+
+
     @Override
-    public void createBooking(Booking booking) {
-        //TODO: Exception
+    public void createBooking(Booking booking) throws Exception {
+        int oldBookingSize = bookings.size();
         bookings.add(booking);
 
+        if(bookings.size() == oldBookingSize){
+            throw new Exception("Booking can't be created exception");
+        }
     }
+
 
     @Override
     public void cancelBooking(BookingId bookingId) throws Exception {
@@ -38,6 +52,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         throw new Exception("Booking not found exception");
     }
 
+
     @Override
     public Booking getBookingByBookingId(BookingId bookingId) throws Exception {
         for (Booking booking : bookings) {
@@ -48,10 +63,6 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         throw new Exception("Booking not found exception");
     }
 
-    public void createRoom(Room room) {
-        //TODO: Excpetion!
-        rooms.add(room);
-    }
 
     @Override
     public Room getRoomByRoomNumber(int roomNumber) throws Exception {
@@ -60,9 +71,9 @@ public class RepositoryWriteImpl implements RepositoryWrite {
                 return room;
             }
         }
-
         throw new Exception("No rooms found exception");
     }
+
 
     @Override
     public List<Room> roomsByCapacity(int capacity) throws Exception {
@@ -80,7 +91,7 @@ public class RepositoryWriteImpl implements RepositoryWrite {
         return roomsResult;
     }
 
-    //TODO: Überarbeiten
+
     @Override
     public void cancelRoomBooking(Room specificRoom) throws Exception {
         Iterator<RoomBooking> roomIterator = specificRoom.getRoomBookings().iterator();
@@ -95,7 +106,6 @@ public class RepositoryWriteImpl implements RepositoryWrite {
             }
             i++;
         }
-
         throw new Exception("Booking not found exception");
     }
 }

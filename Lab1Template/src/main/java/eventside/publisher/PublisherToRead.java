@@ -15,6 +15,7 @@ public class PublisherToRead implements Publisher{
     public PublisherToRead() {
     }
 
+    
     @Override
     public Boolean roomCreated(Event event) {
         System.out.println(event);
@@ -28,6 +29,7 @@ public class PublisherToRead implements Publisher{
                 .bodyToMono(Boolean.class)
                 .block();
     }
+
 
     @Override
     public Boolean bookingCreated(Event event) {
@@ -43,6 +45,7 @@ public class PublisherToRead implements Publisher{
                 .block();
     }
 
+
     @Override
     public Boolean publishBookingCanceled(Event event) {
         System.out.println(event);
@@ -57,6 +60,7 @@ public class PublisherToRead implements Publisher{
                 .block();
     }
 
+
     @Override
     public Boolean roomBookingCreated(Event event) {
         System.out.println(event);
@@ -70,6 +74,7 @@ public class PublisherToRead implements Publisher{
                 .bodyToMono(Boolean.class)
                 .block();
     }
+
 
     @Override
     public Boolean roomBookingCanceled(Event event) {
