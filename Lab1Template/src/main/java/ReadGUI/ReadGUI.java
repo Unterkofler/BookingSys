@@ -114,8 +114,6 @@ public class ReadGUI implements ActionListener {
                     }
                 }
         );
-
-
     }
 
     public void getFreeRooms() {
