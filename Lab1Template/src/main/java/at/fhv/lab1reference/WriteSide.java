@@ -58,6 +58,7 @@ public class WriteSide {
 
             System.out.println("It worked");
             System.out.println(bookingId1);
+            System.out.println(bookingId2);
 
             gui.start();
 

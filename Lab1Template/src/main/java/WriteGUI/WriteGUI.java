@@ -63,7 +63,7 @@ public final class WriteGUI implements ActionListener {
         panel.add(labelEndDate);
 
         labelRoomNumber = new JLabel("RoomNumber");
-        labelRoomNumber.setBounds(100,310,70,20);
+        labelRoomNumber.setBounds(100,310,200,20);
         panel.add(labelRoomNumber);
 
         buttonConfirm = new JButton("Book Room");
