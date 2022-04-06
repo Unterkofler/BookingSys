@@ -91,12 +91,12 @@ public class RepositoryReadImpl implements RepositoryRead {
         List<BookingDTO> allBookings = new ArrayList<>();
 
         for (BookingDTO bookingDTO : bookingList) {
-            if((bookingDTO.getStartDate().equals(startDate) || (bookingDTO.getStartDate().isAfter(startDate.minusDays(1))))
-                    && (bookingDTO.getEndDate().equals(endDate) || (bookingDTO.getEndDate().isBefore(endDate.plusDays(1))))) {
-
+            if ((bookingDTO.getStartDate().isEqual(startDate) || bookingDTO.getStartDate().isAfter(startDate))
+                    && (bookingDTO.getEndDate().isEqual(endDate) || bookingDTO.getEndDate().isBefore(endDate))){
                 allBookings.add(bookingDTO);
-            }
         }
+            }
+
 
         if (allBookings.size() == 0) {
             throw new Exception("No Bookings in Period exception");
