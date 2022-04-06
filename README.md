@@ -16,3 +16,4 @@ Automatisch werden 2 Userinterfaces geöffent.
 2. Räume bekommen: startDate, endDate als String aber im Format "2022-04-08" - capacity als String
 
 
+Bei allen Intterkationen erscheint entweder eine Meldung, dass die "Funktion" funktioniert hat oder eine Fehlermeldung.
