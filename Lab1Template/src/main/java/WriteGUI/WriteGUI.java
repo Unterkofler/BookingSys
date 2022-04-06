@@ -1,4 +1,4 @@
-package GUI;
+package WriteGUI;
 
 import writeside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;

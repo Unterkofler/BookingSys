@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class BookingServiceImpl implements HotelService {
+public class HotelServiceImpl implements HotelService {
 
     @Autowired
     RepositoryWrite repositoryWrite;

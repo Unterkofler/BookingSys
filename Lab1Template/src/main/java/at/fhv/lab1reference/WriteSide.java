@@ -1,6 +1,6 @@
 package at.fhv.lab1reference;
 
-import GUI.WriteGUI;
+import WriteGUI.WriteGUI;
 import writeside.domain.Room;
 import writeside.domain.ValueObjects.BookingId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @SpringBootApplication
 @Configuration
-@ComponentScan({"writeside", "GUI"})
+@ComponentScan({"writeside", "WriteGUI"})
 public class WriteSide {
 
 
